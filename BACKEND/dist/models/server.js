@@ -8,19 +8,16 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const express_1 = __importDefault(require("express"));
+const express = require("express");
 const database_1 = require("../database/database");
 const path = require("path");
 const cors = require('cors');
 class Server {
     constructor(port) {
         this.port = port;
-        this.app = (0, express_1.default)();
-        this.app.use(express_1.default.json());
+        this.app = express();
+        this.app.use(express.json());
         this.app.use(cors());
         this.dbConnecion();
     }
@@ -34,7 +31,7 @@ class Server {
     }
     publicFolder() {
         const publicPath = path.resolve(__dirname, '../public');
-        this.app.use(express_1.default.static(publicPath));
+        this.app.use(express.static(publicPath));
     }
     start(callback) {
         this.app.listen(this.port, callback);
