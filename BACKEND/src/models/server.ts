@@ -1,11 +1,11 @@
-import express, { Application } from 'express';
+import express = require('express');
 import { dbConnecion } from '../database/database';
 import path = require('path');
 
 const cors = require('cors');
 
 export default class Server {
-    public app: Application;
+    public app: express.Application;
     public port: number;
 
     constructor(port: number) {
