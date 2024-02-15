@@ -1,16 +1,25 @@
-import { Navbar } from "../components"
-
+import { Navbar } from "../components";
+import { Route, Routes } from 'react-router-dom';
+import { Home } from "../views";
 export const AppRouter = () => {
 
 
 
     return (
         <>
-        <Navbar/>
-            <h1>RUTAAAS!!!</h1>
+            <Navbar />
+          
             {/*RUTAS PUBLICAS */}
-            {/*RUTAS PRIVADAS*/}
+            <Routes>
+                <Route path="/" element={<Home/>} />
+                <Route path="*" element={<Home/>}/>
+            </Routes>
 
+            {/*RUTAS PRIVADAS*/}
+            <Routes>
+
+
+            </Routes>
 
         </>
 
