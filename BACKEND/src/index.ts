@@ -1,16 +1,20 @@
+import 'dotenv/config';
+// require('dotenv').config();
+
 import Server from "./models/server";
-require('dotenv').config();
-import noticesRoutes from "./routes/notices.routes";
-import adminRoutes from './routes/admin.routes';
 
-const port = Number(process.env.PORT) || 3000; 
+// const port = Number(process.env.PORT) || 3000; 
 
-const server = Server.init(port);
+// const server = Server.init(port);
 
-server.app.use(noticesRoutes);
-server.app.use(adminRoutes);
+// server.app.use(noticesRoutes);
+// server.app.use(adminRoutes);
 
 
-server.start(()=>{
-    console.log(`CORRIENDO en el puerto ${port}`);
-});
+// server.start(()=>{
+//     console.log(`CORRIENDO en el puerto ${port}`);
+// });
+
+const server = new Server();
+
+server.listen();

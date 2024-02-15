@@ -1,10 +1,10 @@
 import { Router } from 'express';
 import { adminLogIn } from '../controllers/admin.controllers';
 
-const noticesRouter = Router();
+const adminRouter = Router();
 
-noticesRouter.get('/admin', adminLogIn);
+adminRouter.get('/admin', adminLogIn);
 
 
 
-export default noticesRouter;
+export default adminRouter;
