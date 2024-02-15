@@ -8,33 +8,51 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const express = require("express");
 const database_1 = require("../database/database");
 const path = require("path");
+const notices_routes_1 = __importDefault(require("../routes/notices.routes"));
+const admin_routes_1 = __importDefault(require("../routes/admin.routes"));
 const cors = require('cors');
 class Server {
-    constructor(port) {
-        this.port = port;
+    constructor() {
+        this.port = Number(process.env.PORT) || 3000;
         this.app = express();
-        this.app.use(express.json());
-        this.app.use(cors());
+        this.middlewares();
         this.dbConnecion();
+        this.routes();
     }
     dbConnecion() {
         return __awaiter(this, void 0, void 0, function* () {
             yield (0, database_1.dbConnecion)();
         });
     }
-    static init(port) {
-        return new Server(port);
+    routes() {
+        this.app.use(notices_routes_1.default);
+        this.app.use(admin_routes_1.default);
     }
+    middlewares() {
+        this.app.use(express.json());
+        this.app.use(cors());
+    }
+    // static init(port: number): Server {
+    //     return new Server(port);
+    // }
     publicFolder() {
         const publicPath = path.resolve(__dirname, '../public');
         this.app.use(express.static(publicPath));
     }
-    start(callback) {
-        this.app.listen(this.port, callback);
+    // start(callback: () => void): void {
+    //     this.app.listen(this.port, callback);
+    // }
+    listen() {
+        this.app.listen(this.port, () => {
+            console.log(`CORRIENDO en https://localhost:${this.port}`);
+        });
     }
 }
 exports.default = Server;

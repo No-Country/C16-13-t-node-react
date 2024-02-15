@@ -2,27 +2,41 @@ import express = require('express');
 import { dbConnecion } from '../database/database';
 import path = require('path');
 
+import noticesRouter from '../routes/notices.routes';
+import adminRouter from '../routes/admin.routes';
+
 const cors = require('cors');
 
 export default class Server {
     public app: express.Application;
     public port: number;
 
-    constructor(port: number) {
-        this.port = port;
+    constructor() {
+        this.port = Number(process.env.PORT) || 3000;
         this.app = express();
-        this.app.use(express.json());
-        this.app.use( cors());
+
+        this.middlewares();
         this.dbConnecion();
+        this.routes();
     }
 
     async dbConnecion() {
         await dbConnecion();
     }
 
-    static init(port: number): Server {
-        return new Server(port);
+    private middlewares () {
+        this.app.use( express.json() );
+        this.app.use( cors() );
     }
+
+    private routes () {
+        this.app.use(noticesRouter);
+        this.app.use(adminRouter);
+    }
+
+    // static init(port: number): Server {
+    //     return new Server(port);
+    // }
 
     private publicFolder() {
         const publicPath = path.resolve(__dirname, '../public');
@@ -30,7 +44,13 @@ export default class Server {
         this.app.use(express.static(publicPath));
     }
 
-    start(callback: () => void): void {
-        this.app.listen(this.port, callback);
+    // start(callback: () => void): void {
+    //     this.app.listen(this.port, callback);
+    // }
+
+    public listen() {
+        this.app.listen( this.port, () => {
+            console.log(`CORRIENDO en https://localhost:${ this.port }`);
+        });
     }
 }
