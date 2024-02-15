@@ -1,2 +1,8 @@
+# Private files
 .env
+
+# modules
 node_modules
+
+# Package dependencies
+package-lock.json
