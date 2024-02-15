@@ -1,4 +1,4 @@
-import { Navbar } from "../components";
+import { Navbar, Footer} from "../components";
 import { Route, Routes } from 'react-router-dom';
 import { Home } from "../views";
 export const AppRouter = () => {
@@ -18,11 +18,11 @@ export const AppRouter = () => {
             {/*RUTAS PRIVADAS*/}
             <Routes>
 
-
+            
             </Routes>
-
+            <Footer/>
         </>
-
+        
 
 
     )
