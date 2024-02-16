@@ -31,8 +31,8 @@ const listarNoticias = (req, res) => __awaiter(void 0, void 0, void 0, function*
 exports.listarNoticias = listarNoticias;
 const agregarNoticia = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { titulo, subTitulo, categoria, foto, sinopsis } = req.body;
-        const noticia = new notices_1.default({ titulo, subTitulo, categoria, foto, sinopsis });
+        const { title, subtitle, category, imgUrl, synopsis } = req.body;
+        const noticia = new notices_1.default({ title, subtitle, category, imgUrl, synopsis });
         yield noticia.save();
         res.status(201).json({
             msg: "Noticia agregada correctamente!!",
@@ -40,6 +40,7 @@ const agregarNoticia = (req, res) => __awaiter(void 0, void 0, void 0, function*
         });
     }
     catch (error) {
+        console.log(error);
         res.status(500).json({
             msg: "Error al agregar noticia. Intente nuevamente. Si el problema persiste contacte al administrador"
         });

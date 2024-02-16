@@ -1,7 +1,7 @@
 import { Schema, model, Document } from 'mongoose';
 
 // Define el enum para las categorías
-enum Categoria {
+enum Category {
     DEPORTES = 'Deportes',
     TECNOLOGIA = 'Tecnología',
     POLICIALES = 'Policiales',
@@ -10,33 +10,33 @@ enum Categoria {
 }
 
 interface Notice extends Document {
-    titulo: string;
-    subTitulo: string;
-    foto: string;
-    sinopsis: string;
+    title: string;
+    subtitle: string;
+    imgUrl: string;
+    synopsis: string;
     fecha: Date;
-    categoria: Categoria; // Campo de tipo enum
+    category: Category; // Campo de tipo enum
 }
 
 const noticeSchema = new Schema<Notice>({
-    titulo: {
+    title: {
         type: String,
         required: [true, "El título es obligatorio"]
     },
-    subTitulo:{
+    subtitle:{
         type: String,
         required: [true, "El subtítulo es obligatorio"]
     },
-    categoria:{
+    category:{
         type: String,
-        enum: Object.values(Categoria), // Usamos los valores del enum como opciones válidas
+        enum: Object.values(Category), // Usamos los valores del enum como opciones válidas
         required: [true, "La categoría es obligatoria"]
     },
-    foto:{
+    imgUrl:{
         type: String,
         required: [true, "La URL de la foto es obligatoria"]
     },
-    sinopsis:{
+    synopsis:{
         type: String,
         required: [true, "La sinopsis es obligatoria"]
     },
@@ -55,3 +55,4 @@ noticeSchema.methods.toJSON = function (): any {
 };
 
 export default model<Notice>("Notices", noticeSchema);
+

@@ -13,33 +13,33 @@ var __rest = (this && this.__rest) || function (s, e) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = require("mongoose");
 // Define el enum para las categorías
-var Categoria;
-(function (Categoria) {
-    Categoria["DEPORTES"] = "Deportes";
-    Categoria["TECNOLOGIA"] = "Tecnolog\u00EDa";
-    Categoria["POLICIALES"] = "Policiales";
-    Categoria["ESPECTACULO"] = "Espectaculo";
-    Categoria["POLITICAS"] = "Politicas";
-})(Categoria || (Categoria = {}));
+var Category;
+(function (Category) {
+    Category["DEPORTES"] = "Deportes";
+    Category["TECNOLOGIA"] = "Tecnolog\u00EDa";
+    Category["POLICIALES"] = "Policiales";
+    Category["ESPECTACULO"] = "Espectaculo";
+    Category["POLITICAS"] = "Politicas";
+})(Category || (Category = {}));
 const noticeSchema = new mongoose_1.Schema({
-    titulo: {
+    title: {
         type: String,
         required: [true, "El título es obligatorio"]
     },
-    subTitulo: {
+    subtitle: {
         type: String,
         required: [true, "El subtítulo es obligatorio"]
     },
-    categoria: {
+    category: {
         type: String,
-        enum: Object.values(Categoria), // Usamos los valores del enum como opciones válidas
+        enum: Object.values(Category), // Usamos los valores del enum como opciones válidas
         required: [true, "La categoría es obligatoria"]
     },
-    foto: {
+    imgUrl: {
         type: String,
         required: [true, "La URL de la foto es obligatoria"]
     },
-    sinopsis: {
+    synopsis: {
         type: String,
         required: [true, "La sinopsis es obligatoria"]
     },
