@@ -31,13 +31,13 @@ class Server {
             yield (0, database_1.dbConnecion)();
         });
     }
-    routes() {
-        this.app.use(notices_routes_1.default);
-        this.app.use(admin_routes_1.default);
-    }
     middlewares() {
         this.app.use(express.json());
         this.app.use(cors());
+    }
+    routes() {
+        this.app.use(notices_routes_1.default);
+        this.app.use(admin_routes_1.default);
     }
     // static init(port: number): Server {
     //     return new Server(port);

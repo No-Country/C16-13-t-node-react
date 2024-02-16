@@ -8,11 +8,41 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.listarNoticias = void 0;
+exports.agregarNoticia = exports.listarNoticias = void 0;
+const notices_1 = __importDefault(require("../models/notices"));
 const listarNoticias = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    res.json({
-        msg: "LISTANDO NOTICIAS"
-    });
+    try {
+        const noticias = yield notices_1.default.find();
+        res.status(200).json({
+            msg: "Lista de noticias",
+            noticias
+        });
+    }
+    catch (error) {
+        res.status(400).json({
+            msg: "Error al listar las noticias. Contacte al administrador"
+        });
+    }
 });
 exports.listarNoticias = listarNoticias;
+const agregarNoticia = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { titulo, subTitulo, categoria, foto, sinopsis } = req.body;
+        const noticia = new notices_1.default({ titulo, subTitulo, categoria, foto, sinopsis });
+        yield noticia.save();
+        res.status(201).json({
+            msg: "Noticia agregada correctamente!!",
+            noticia
+        });
+    }
+    catch (error) {
+        res.status(500).json({
+            msg: "Error al agregar noticia. Intente nuevamente. Si el problema persiste contacte al administrador"
+        });
+    }
+});
+exports.agregarNoticia = agregarNoticia;
