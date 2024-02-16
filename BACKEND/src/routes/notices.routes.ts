@@ -1,9 +1,11 @@
 import { Router } from 'express';
-import { listarNoticias } from '../controllers/notices.controllers';
+import { listarNoticias, agregarNoticia } from '../controllers/notices.controllers';
 
 const noticesRouter = Router();
 
 noticesRouter.get('/news', listarNoticias);
+noticesRouter.post('/news', agregarNoticia);
+
 
 
 
