@@ -22,8 +22,8 @@ export const listarNoticias = async (req: Request, res: Response) => {
 export const agregarNoticia = async (req: Request, res: Response) => {
 
     try {
-        const { titulo, subTitulo, categoria, foto, sinopsis } = req.body
-        const noticia = new Notice({ titulo, subTitulo, categoria, foto, sinopsis });
+        const { title, subtitle, category, imgUrl, synopsis } = req.body
+        const noticia = new Notice({ title, subtitle, category, imgUrl, synopsis });
         await noticia.save();
 
         res.status(201).json({
@@ -31,6 +31,7 @@ export const agregarNoticia = async (req: Request, res: Response) => {
             noticia
         })
     } catch (error) {
+        console.log(error)
         res.status(500).json({
             msg: "Error al agregar noticia. Intente nuevamente. Si el problema persiste contacte al administrador"
         })
