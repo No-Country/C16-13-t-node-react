@@ -12,20 +12,35 @@ var __rest = (this && this.__rest) || function (s, e) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = require("mongoose");
+// Define el enum para las categorías
+var Category;
+(function (Category) {
+    Category["DEPORTES"] = "Deportes";
+    Category["TECNOLOGIA"] = "Tecnolog\u00EDa";
+    Category["POLICIALES"] = "Policiales";
+    Category["ESPECTACULO"] = "Espectaculo";
+    Category["POLITICAS"] = "Politicas";
+    Category["INTERES_GENERAL"] = "Interes General";
+})(Category || (Category = {}));
 const noticeSchema = new mongoose_1.Schema({
-    titulo: {
+    title: {
         type: String,
-        required: [true, "El titulo es obligatorio"]
+        required: [true, "El título es obligatorio"]
     },
-    subTitulo: {
+    subtitle: {
         type: String,
-        required: [true, "El subtitulo es obligatorio"]
+        required: [true, "El subtítulo es obligatorio"]
     },
-    foto: {
-        type: Buffer,
-        required: [true, "La foto es obligatoria"]
+    category: {
+        type: String,
+        enum: Object.values(Category), // Usamos los valores del enum como opciones válidas
+        required: [true, "La categoría es obligatoria"]
     },
-    sinopsis: {
+    imgUrl: {
+        type: String,
+        required: [true, "La URL de la foto es obligatoria"]
+    },
+    synopsis: {
         type: String,
         required: [true, "La sinopsis es obligatoria"]
     },
@@ -36,7 +51,7 @@ const noticeSchema = new mongoose_1.Schema({
 });
 noticeSchema.methods.toJSON = function () {
     const _a = this.toObject(), { __v, _id } = _a, notice = __rest(_a, ["__v", "_id"]);
-    notice.uid = _id;
+    notice.noticeId = _id;
     return notice;
 };
 exports.default = (0, mongoose_1.model)("Notices", noticeSchema);

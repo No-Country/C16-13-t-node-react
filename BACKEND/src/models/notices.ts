@@ -1,29 +1,43 @@
 import { Schema, model, Document } from 'mongoose';
 
-//NOTICES MODEL STRUCTURE
-
-interface Notice extends Document {
-    titulo: string;
-    subTitulo: string;
-    foto: Buffer;
-    sinopsis: string;
-    fecha: Date;
+// Define el enum para las categorías
+enum Category {
+    DEPORTES = 'Deportes',
+    TECNOLOGIA = 'Tecnología',
+    POLICIALES = 'Policiales',
+    ESPECTACULO = 'Espectaculo',
+    POLITICAS = 'Politicas',
+    INTERES_GENERAL = 'Interes General'
 }
 
-const noticeSchema = new Schema<Notice>({
-    titulo: {
+export interface INotice extends Document {
+    title: string;
+    subtitle: string;
+    imgUrl: string;
+    synopsis: string;
+    fecha: Date;
+    category: Category; // Campo de tipo enum
+}
+
+const noticeSchema = new Schema<INotice>({
+    title: {
         type: String,
-        required: [true, "El titulo es obligatorio"]
+        required: [true, "El título es obligatorio"]
     },
-    subTitulo:{
+    subtitle:{
         type: String,
-        required: [true, "El subtitulo es obligatorio"]
+        required: [true, "El subtítulo es obligatorio"]
     },
-    foto:{
-        type: Buffer,
-        required: [true, "La foto es obligatoria"]
+    category:{
+        type: String,
+        enum: Object.values(Category), // Usamos los valores del enum como opciones válidas
+        required: [true, "La categoría es obligatoria"]
     },
-    sinopsis:{
+    imgUrl:{
+        type: String,
+        required: [true, "La URL de la foto es obligatoria"]
+    },
+    synopsis:{
         type: String,
         required: [true, "La sinopsis es obligatoria"]
     },
@@ -36,9 +50,10 @@ const noticeSchema = new Schema<Notice>({
 noticeSchema.methods.toJSON = function (): any {
     const { __v, _id, ...notice } = this.toObject();
 
-    notice.uid = _id;
+    notice.noticeId = _id;
 
     return notice;
 };
 
-export default model<Notice>("Notices", noticeSchema);
+export default model<INotice>("Notices", noticeSchema);
+
