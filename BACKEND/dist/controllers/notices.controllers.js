@@ -12,19 +12,19 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.agregarNoticia = exports.listarNoticias = void 0;
+exports.eliminarNoticia = exports.editarNoticia = exports.agregarNoticia = exports.listarNoticias = void 0;
 const notices_1 = __importDefault(require("../models/notices"));
 const listarNoticias = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const noticias = yield notices_1.default.find();
-        res.status(200).json({
-            msg: "Lista de noticias",
+        return res.status(200).json({
+            msg: 'Lista de noticias',
             noticias
         });
     }
     catch (error) {
-        res.status(400).json({
-            msg: "Error al listar las noticias. Contacte al administrador"
+        return res.status(400).json({
+            msg: 'Error al listar las noticias. Contacte al administrador'
         });
     }
 });
@@ -34,16 +34,53 @@ const agregarNoticia = (req, res) => __awaiter(void 0, void 0, void 0, function*
         const { title, subtitle, category, imgUrl, synopsis } = req.body;
         const noticia = new notices_1.default({ title, subtitle, category, imgUrl, synopsis });
         yield noticia.save();
-        res.status(201).json({
-            msg: "Noticia agregada correctamente!!",
+        return res.status(201).json({
+            msg: 'Noticia agregada correctamente!!',
             noticia
         });
     }
     catch (error) {
-        console.log(error);
-        res.status(500).json({
-            msg: "Error al agregar noticia. Intente nuevamente. Si el problema persiste contacte al administrador"
+        console.error(error);
+        return res.status(500).json({
+            msg: 'Error al agregar noticia. Intente nuevamente. Si el problema persiste contacte al administrador'
         });
     }
 });
 exports.agregarNoticia = agregarNoticia;
+const editarNoticia = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { id } = req.params;
+        const noticia = yield notices_1.default.findById(id);
+        if (!noticia) {
+            return res.status(400).json({ msg: 'La noticia no fue encontrada' });
+        }
+        noticia.title = req.body.title || noticia.title;
+        noticia.subtitle = req.body.subtitle || noticia.subtitle;
+        noticia.synopsis = req.body.synopsis || noticia.synopsis;
+        noticia.imgUrl = req.body.imgUrl || noticia.imgUrl;
+        noticia.category = req.body.category || noticia.category;
+        const noticiaActualizada = yield noticia.save();
+        return res.status(202).json({ noticiaActualizada });
+    }
+    catch (error) {
+        console.error(error);
+        return res.status(504).json({ msg: 'Error al actualizar la noticia. Contacte al administrador' });
+    }
+});
+exports.editarNoticia = editarNoticia;
+const eliminarNoticia = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { id } = req.params;
+    try {
+        const noticia = yield notices_1.default.findById(id);
+        if (!noticia) {
+            return res.status(400).json({ msg: 'Noticia no encontrada' });
+        }
+        yield noticia.deleteOne();
+        return res.status(202).json({ msg: 'Noticia eliminada correctamente' });
+    }
+    catch (error) {
+        console.error(error);
+        return res.status(505).json({ msg: 'Ha ocurrido un error al eliminar la noticia. Contacte al administrador' });
+    }
+});
+exports.eliminarNoticia = eliminarNoticia;
