@@ -6,10 +6,11 @@ enum Category {
     TECNOLOGIA = 'Tecnología',
     POLICIALES = 'Policiales',
     ESPECTACULO = 'Espectaculo',
-    POLITICAS = 'Politicas'
+    POLITICAS = 'Politicas',
+    INTERES_GENERAL = 'Interes General'
 }
 
-interface Notice extends Document {
+export interface INotice extends Document {
     title: string;
     subtitle: string;
     imgUrl: string;
@@ -18,7 +19,7 @@ interface Notice extends Document {
     category: Category; // Campo de tipo enum
 }
 
-const noticeSchema = new Schema<Notice>({
+const noticeSchema = new Schema<INotice>({
     title: {
         type: String,
         required: [true, "El título es obligatorio"]
@@ -54,5 +55,5 @@ noticeSchema.methods.toJSON = function (): any {
     return notice;
 };
 
-export default model<Notice>("Notices", noticeSchema);
+export default model<INotice>("Notices", noticeSchema);
 

@@ -20,6 +20,7 @@ var Category;
     Category["POLICIALES"] = "Policiales";
     Category["ESPECTACULO"] = "Espectaculo";
     Category["POLITICAS"] = "Politicas";
+    Category["INTERES_GENERAL"] = "Interes General";
 })(Category || (Category = {}));
 const noticeSchema = new mongoose_1.Schema({
     title: {
