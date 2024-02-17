@@ -33,7 +33,7 @@ const noticeSchema = new mongoose_1.Schema({
     },
     category: {
         type: String,
-        enum: Object.values(Category), // Usamos los valores del enum como opciones válidas
+        enum: Object.values(Category),
         required: [true, "La categoría es obligatoria"]
     },
     imgUrl: {

@@ -4,6 +4,7 @@ import path = require('path');
 
 import noticesRouter from '../routes/notices.routes';
 import adminRouter from '../routes/admin.routes';
+import userRouter from '../routes/user.routes';
 
 const cors = require('cors');
 
@@ -32,6 +33,7 @@ export default class Server {
     private routes () {
         this.app.use(noticesRouter);
         this.app.use(adminRouter);
+        this.app.use(userRouter);
     }
 
     // static init(port: number): Server {
