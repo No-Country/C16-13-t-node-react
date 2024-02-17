@@ -17,6 +17,7 @@ const database_1 = require("../database/database");
 const path = require("path");
 const notices_routes_1 = __importDefault(require("../routes/notices.routes"));
 const admin_routes_1 = __importDefault(require("../routes/admin.routes"));
+const user_routes_1 = __importDefault(require("../routes/user.routes"));
 const cors = require('cors');
 class Server {
     constructor() {
@@ -38,6 +39,7 @@ class Server {
     routes() {
         this.app.use(notices_routes_1.default);
         this.app.use(admin_routes_1.default);
+        this.app.use(user_routes_1.default);
     }
     // static init(port: number): Server {
     //     return new Server(port);
