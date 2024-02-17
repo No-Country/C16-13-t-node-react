@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Notice } from '../../interface/NoticeModel';
 import noticesService from '../../service/noticesService';
 import { Link } from 'react-router-dom';
 
-const NoticeList: React.FC = () => {
+export const NoticeList = () => {
 
     const [noticias, setNoticias] = useState<Notice[]>([]);
 
@@ -18,7 +18,7 @@ const NoticeList: React.FC = () => {
                 console.error('Error al obtener las noticias:', error);
             }
         };
-        
+
         fetchData();
     }, []);
 
@@ -28,12 +28,12 @@ const NoticeList: React.FC = () => {
             <ul>
                 {noticias.map((noticia) => (
                     <li key={noticia.noticeId} className="mb-8">
-                            <Link to={`/notice/${noticia.noticeId}`}>
-                                <img src={noticia.imgUrl} alt={noticia.title} className="mb-2 rounded-md" />
-                                <h2 className="text-xl font-bold mb-2">{noticia.title}</h2>
-                                <p className="text-sm mb-2">Fecha: {noticia.fecha}</p>
-                                <p className="text-sm">{noticia.category}</p>
-                            </Link>
+                        <Link to={`/notice/${noticia.noticeId}`}>
+                            <img src={noticia.imgUrl} alt={noticia.title} className="mb-2 rounded-md" />
+                            <h2 className="text-xl font-bold mb-2">{noticia.title}</h2>
+                            <p className="text-sm mb-2">Fecha: {noticia.fecha}</p>
+                            <p className="text-sm">{noticia.category}</p>
+                        </Link>
                     </li>
                 ))}
             </ul>
@@ -41,5 +41,4 @@ const NoticeList: React.FC = () => {
     );
 };
 
-export default NoticeList;
 

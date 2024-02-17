@@ -1,15 +1,15 @@
-import React from 'react';
 import { useParams } from 'react-router-dom';
 import { Notice } from '../../interface/NoticeModel';
 import noticesService from '../../service/noticesService';
+import { useEffect, useState } from 'react';
 
-const NoticeComplete: React.FC = () => {
+export const NoticeComplete = () => {
 
     const { id } = useParams<{ id: string }>();
 
-    const [noticia, setNoticia] = React.useState<Notice | null>(null);
+    const [noticia, setNoticia] = useState<Notice | null>(null);
 
-    React.useEffect(() => {
+    useEffect(() => {
         const fetchNoticia = async () => {
             try {
                 if (id) { // Verificar si id no es undefined
@@ -39,5 +39,3 @@ const NoticeComplete: React.FC = () => {
         </div>
     );
 };
-
-export default NoticeComplete;
