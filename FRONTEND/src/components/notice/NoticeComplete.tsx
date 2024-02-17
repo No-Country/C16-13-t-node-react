@@ -36,7 +36,6 @@ export const NoticeComplete = () => {
             <h1>{noticia.title}</h1>
             <h1>{noticia.subtitle}</h1>
             <p>{noticia.synopsis}</p>
-            {/* Agrega aquí los demás detalles de la noticia */}
         </div>
     );
 };
