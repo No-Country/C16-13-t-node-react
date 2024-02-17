@@ -6,7 +6,6 @@ export const Footer = () => {
         <li className="list-none"><Link to="/">Links de interés</Link></li>
         <li className="list-none"> <Link to="/">Redes sociales</Link></li>
         <li className="list-none"><Link to="/">Información legal</Link></li>
-
     </div>
   )
 }

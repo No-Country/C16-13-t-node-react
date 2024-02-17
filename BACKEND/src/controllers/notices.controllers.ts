@@ -1,20 +1,6 @@
 import { Request, Response } from 'express';
 import Notice, { INotice } from '../models/notices';
 
-export const listarNoticias = async (req: Request, res: Response): Promise<Response> => {
-    try {
-        const noticias = await Notice.find();
-        return res.status(200).json({
-            msg: 'Lista de noticias',
-            noticias
-        });
-    } catch (error) {
-        return res.status(400).json({
-            msg: 'Error al listar las noticias. Contacte al administrador'
-        });
-    }
-};
-
 export const agregarNoticia = async (req: Request, res: Response): Promise<Response> => {
     try {
         const { title, subtitle, category, imgUrl, synopsis } = req.body;
@@ -52,6 +38,34 @@ export const editarNoticia = async (req: Request, res: Response): Promise<Respon
     } catch (error) {
         console.error(error);
         return res.status(504).json({ msg: 'Error al actualizar la noticia. Contacte al administrador' });
+    }
+};
+
+export const getNoticiaById = async (req: Request, res: Response): Promise<Response> => {
+    const { id } = req.params;
+    try {
+        const noticia: INotice | null = await Notice.findById(id);
+        if (!noticia) {
+            return res.status(404).json({ msg: 'Noticia no encontrada' });
+        }
+        return res.status(200).json({ noticia });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ msg: 'Error al obtener la noticia. Contacte al administrador' });
+    }
+};
+
+export const listarNoticias = async (req: Request, res: Response): Promise<Response> => {
+    try {
+        const noticias = await Notice.find();
+        return res.status(200).json({
+            msg: 'Lista de noticias',
+            noticias
+        });
+    } catch (error) {
+        return res.status(400).json({
+            msg: 'Error al listar las noticias. Contacte al administrador'
+        });
     }
 };
 

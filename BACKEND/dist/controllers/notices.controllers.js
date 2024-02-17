@@ -12,23 +12,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.eliminarNoticia = exports.editarNoticia = exports.agregarNoticia = exports.listarNoticias = void 0;
+exports.eliminarNoticia = exports.listarNoticias = exports.getNoticiaById = exports.editarNoticia = exports.agregarNoticia = void 0;
 const notices_1 = __importDefault(require("../models/notices"));
-const listarNoticias = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const noticias = yield notices_1.default.find();
-        return res.status(200).json({
-            msg: 'Lista de noticias',
-            noticias
-        });
-    }
-    catch (error) {
-        return res.status(400).json({
-            msg: 'Error al listar las noticias. Contacte al administrador'
-        });
-    }
-});
-exports.listarNoticias = listarNoticias;
 const agregarNoticia = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { title, subtitle, category, imgUrl, synopsis } = req.body;
@@ -68,6 +53,36 @@ const editarNoticia = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     }
 });
 exports.editarNoticia = editarNoticia;
+const getNoticiaById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { id } = req.params;
+    try {
+        const noticia = yield notices_1.default.findById(id);
+        if (!noticia) {
+            return res.status(404).json({ msg: 'Noticia no encontrada' });
+        }
+        return res.status(200).json({ noticia });
+    }
+    catch (error) {
+        console.error(error);
+        return res.status(500).json({ msg: 'Error al obtener la noticia. Contacte al administrador' });
+    }
+});
+exports.getNoticiaById = getNoticiaById;
+const listarNoticias = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const noticias = yield notices_1.default.find();
+        return res.status(200).json({
+            msg: 'Lista de noticias',
+            noticias
+        });
+    }
+    catch (error) {
+        return res.status(400).json({
+            msg: 'Error al listar las noticias. Contacte al administrador'
+        });
+    }
+});
+exports.listarNoticias = listarNoticias;
 const eliminarNoticia = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     try {
