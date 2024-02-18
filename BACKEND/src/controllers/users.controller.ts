@@ -6,6 +6,8 @@ export const createUser = async (req: Request, res: Response) => {
     })
 };
 
+
+
 export const getUsers = async (req: Request, res: Response) => {
   res.json({
       msg: "getUsers",
