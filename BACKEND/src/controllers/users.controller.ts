@@ -6,3 +6,26 @@ export const createUser = async (req: Request, res: Response) => {
     })
 };
 
+export const getUsers = async (req: Request, res: Response) => {
+  res.json({
+      msg: "getUsers",
+  })
+};
+
+export const getUserById = async (req: Request, res: Response) => {
+  res.json({
+      msg: "getUserById",
+  })
+};
+
+export const deleteUserById = async (req: Request, res: Response) => {
+  res.json({
+      msg: "deleteUserById",
+  })
+};
+
+export const updateUserById = async (req: Request, res: Response) => {
+  res.json({
+      msg: "updateUserById",
+  })
+};
