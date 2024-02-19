@@ -1,4 +1,5 @@
 "use strict";
+
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const notices_controllers_1 = require("../controllers/notices.controllers");
@@ -9,3 +10,4 @@ noticesRouter.get('/news/:id', notices_controllers_1.getNoticiaById);
 noticesRouter.get('/news', notices_controllers_1.listarNoticias);
 noticesRouter.delete('/news/:id', notices_controllers_1.eliminarNoticia);
 exports.default = noticesRouter;
+

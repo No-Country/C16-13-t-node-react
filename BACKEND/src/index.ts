@@ -3,7 +3,7 @@ import 'dotenv/config';
 
 import Server from "./models/server";
 
-// const port = Number(process.env.PORT) || 3000; 
+require('dotenv').config();
 
 // const server = Server.init(port);
 
