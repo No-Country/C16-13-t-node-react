@@ -36,19 +36,11 @@ export default class Server {
         this.app.use(userRouter);
     }
 
-    // static init(port: number): Server {
-    //     return new Server(port);
-    // }
-
     private publicFolder() {
         const publicPath = path.resolve(__dirname, '../public');
 
         this.app.use(express.static(publicPath));
     }
-
-    // start(callback: () => void): void {
-    //     this.app.listen(this.port, callback);
-    // }
 
     public listen() {
         this.app.listen( this.port, () => {

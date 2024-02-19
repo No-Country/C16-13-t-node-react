@@ -37,11 +37,11 @@ const userSchema = new Schema<IUser>({
 });
 
 userSchema.methods.toJSON = function (): any {
-    const { __v, _id, ...notice } = this.toObject();
+    const { __v, _id, ...user } = this.toObject();
 
-    notice.noticeId = _id;
+    user.userId = _id;
 
-  return notice;
+  return user;
 };
 
-export default model<IUser>("User", userSchema);
+export default model<IUser>("Users", userSchema);
