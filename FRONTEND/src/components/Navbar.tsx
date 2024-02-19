@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars, faSearch, faTimes, faMagnifyingGlass, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faMagnifyingGlass, faXmark } from '@fortawesome/free-solid-svg-icons';
 import {Menu, Busqueda } from './';
 
 export const Navbar = () => {
@@ -24,7 +24,7 @@ export const Navbar = () => {
             <FontAwesomeIcon icon={faMagnifyingGlass} />
           </div>
           <div onClick={mostrarMenu}>
-            {menuHamb ? <FontAwesomeIcon icon={faTimesCircle} /> : <FontAwesomeIcon icon={faBars} />}
+            {menuHamb ? <FontAwesomeIcon icon={faXmark} /> : <FontAwesomeIcon icon={faBars} />}
           </div>
         </div>
       </nav>
