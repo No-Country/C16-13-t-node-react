@@ -11,15 +11,13 @@ export const AppRouter = () => {
             {/*RUTAS PUBLICAS */}
             <Routes>
                 <Route path="/" element={<Home />} />
-                <Route path="*" element={<Home />} />
+                <Route path="/*" element={<Home />} />
+                <Route path="/notice/:id" element={<NoticeComplete />} />
             </Routes>
 
             {/*RUTAS PRIVADAS*/}
+    
             <Routes>
-            </Routes>
-
-            <Routes>
-                <Route path="/notice/:id" element={<NoticeComplete />} />
             </Routes>
 
             <Footer />
