@@ -39,8 +39,8 @@ var userSchema = new mongoose_1.Schema({
     }
 });
 userSchema.methods.toJSON = function () {
-    var _a = this.toObject(), __v = _a.__v, _id = _a._id, notice = __rest(_a, ["__v", "_id"]);
-    notice.noticeId = _id;
-    return notice;
+    var _a = this.toObject(), __v = _a.__v, _id = _a._id, user = __rest(_a, ["__v", "_id"]);
+    user.userId = _id;
+    return user;
 };
-exports["default"] = mongoose_1.model("User", userSchema);
+exports["default"] = mongoose_1.model("Users", userSchema);
