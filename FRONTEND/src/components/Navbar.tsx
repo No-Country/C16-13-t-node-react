@@ -17,9 +17,9 @@ export const Navbar = () => {
 
   return (
     <div className='flex flex-col'>
-      <nav className="flex flex-row justify-between p-2 bg-gray-300 h-20 items-center">
+      <nav className="flex flex-row justify-between p-2 bg-[--secundary] h-20 items-center">
         <div>LOGO</div>
-        <div className="flex flex-row justify-center gap-6 m-6">
+        <div className="flex flex-row justify-center gap-6 m-6 text-[--neutral]">
           <div onClick={iniciarBusqueda}>
             <FontAwesomeIcon icon={faMagnifyingGlass} />
           </div>

@@ -2,8 +2,36 @@
 @tailwind components;
 @tailwind utilities;
 
-*{
+* {
   margin: 0;
-  padding: 0; 
+  padding: 0;
   box-sizing: border-box;
+}
+
+
+:root {
+  --alert: #ef4444;
+  --warning: #f59e0b;
+  --succes: #10b981;
+  --primary: #66cccc;
+  --secundary: #003366;
+  --accent: #ff6600;
+  --neutral: #999999;
+}
+
+/*effect Menu.tsx*/
+
+.animacion-menu {
+  animation-name: slideAnimation;
+  animation-duration: 1s;
+  animation-timing-function: ease-in-out;
+}
+
+@keyframes slideAnimation {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(0);
+  }
 }

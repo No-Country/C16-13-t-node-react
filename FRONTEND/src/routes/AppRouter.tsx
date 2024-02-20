@@ -1,7 +1,7 @@
 import { Navbar, Footer } from "../components";
 import { Route, Routes } from 'react-router-dom';
 import { Home } from "../views";
-import {NoticeComplete} from "../components/notice/NoticeComplete";
+import { NoticePerCategory, NoticeComplete } from "../components/notice";
 
 export const AppRouter = () => {
     return (
@@ -13,6 +13,7 @@ export const AppRouter = () => {
                 <Route path="/" element={<Home />} />
                 <Route path="/*" element={<Home />} />
                 <Route path="/notice/:id" element={<NoticeComplete />} />
+                <Route path="/notice/:category" element={<NoticePerCategory />} />
             </Routes>
 
             {/*RUTAS PRIVADAS*/}
