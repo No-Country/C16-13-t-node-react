@@ -1,6 +1,6 @@
 
 export const Busqueda = () => {
   return (
-    <div>Busqueda</div>
+    <div className="animacion-menu bg-[--secundary]">Busqueda</div>
   )
 }
