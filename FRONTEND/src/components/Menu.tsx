@@ -4,7 +4,7 @@ const category: string[] = ["Deportes", "Tecnología", 'Policiales', 'Espectacul
 
 export const Menu = () => {
   return (
-    <div className="text-[--neutral] list-none bg-[--secundary] animacion-menu font-bold flex flex-col justify-center items-center gap-4 pb-28 pt-20 shadow-xl" >
+    <div className="text-[--secundary] list-none bg-[--primary] animacion-menu font-bold flex flex-col justify-center items-center gap-4 pb-20 pt-20 shadow-xl" >
       {
         category.map(categ => (
           <div key={categ}>
