@@ -21,7 +21,7 @@ export const Navbar = () => {
         <div>LOGO</div>
         <div className="flex flex-row justify-center gap-6 m-6 text-[--secundary]">
           <div onClick={iniciarBusqueda}>
-            <FontAwesomeIcon icon={faMagnifyingGlass} />
+            {busqueda ? <FontAwesomeIcon icon={faXmark} /> : <FontAwesomeIcon icon={faMagnifyingGlass} />}
           </div>
           <div onClick={mostrarMenu}>
             {menuHamb ? <FontAwesomeIcon icon={faXmark} /> : <FontAwesomeIcon icon={faBars} />}
