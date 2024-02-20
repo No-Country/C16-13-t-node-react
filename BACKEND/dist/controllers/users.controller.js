@@ -13,10 +13,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteUserById = exports.updateUserById = exports.createUser = exports.getUserById = exports.getUsers = void 0;
-const users_1 = __importDefault(require("../models/users"));
+const user_1 = __importDefault(require("../models/user"));
 const getUsers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const users = yield users_1.default.find();
+        const users = yield user_1.default.find();
         return res.status(200).json({
             msg: 'Users list',
             users
@@ -33,7 +33,7 @@ exports.getUsers = getUsers;
 const getUserById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     try {
-        const user = yield users_1.default.findById(id);
+        const user = yield user_1.default.findById(id);
         if (!user) {
             return res.status(404).json({ msg: 'Noticia no encontrada' });
         }
@@ -49,8 +49,13 @@ const getUserById = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
 exports.getUserById = getUserById;
 const createUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { name, lastName, pass, email, imgUrl } = req.body;
-        const user = new users_1.default({ name, lastName, pass, email, imgUrl });
+        const { name, lastName, pass, validatePass, email, imgUrl, rol = 'USER' } = req.body;
+        if (pass !== validatePass) {
+            return res.status(400).json({
+                msg: 'The passwords do not match'
+            });
+        }
+        const user = new user_1.default({ name, lastName, pass, email, imgUrl, rol });
         yield user.save();
         return res.status(201).json({
             msg: 'User created successfully',
@@ -68,7 +73,7 @@ exports.createUser = createUser;
 const updateUserById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     try {
-        const user = yield users_1.default.findById(id);
+        const user = yield user_1.default.findById(id);
         if (!user) {
             return res.status(400).json({ msg: 'The user was not found' });
         }
@@ -77,6 +82,7 @@ const updateUserById = (req, res) => __awaiter(void 0, void 0, void 0, function*
         user.pass = req.body.pass || user.pass;
         user.email = req.body.email || user.email;
         user.imgUrl = req.body.imgUrl || user.imgUrl;
+        user.rol = req.body.rol || user.rol;
         // user.avilable = true;
         const userUpdated = yield user.save();
         return res.status(200).json({ userUpdated });
@@ -92,7 +98,7 @@ exports.updateUserById = updateUserById;
 const deleteUserById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     try {
-        const user = yield users_1.default.findById(id);
+        const user = yield user_1.default.findById(id);
         if (!user) {
             return res.status(400).json({ msg: 'The user was not found' });
         }
