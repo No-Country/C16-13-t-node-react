@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import User, { IUser } from "../models/users";
+import User, { IUser } from "../models/user";
 
 export const getUsers = async (req: Request, res: Response): Promise<Response>  => {
   try {
@@ -21,7 +21,7 @@ export const getUserById = async (req: Request, res: Response): Promise<Response
   try {
       const user: IUser | null = await User.findById( id );
       if( !user ) {
-        return res.status(404).json({ msg: 'Noticia no encontrada' });
+          return res.status(404).json({ msg: 'Noticia no encontrada' });
       }
       return res.status(200).json({ user });
   } catch (err) {
@@ -34,8 +34,13 @@ export const getUserById = async (req: Request, res: Response): Promise<Response
 
 export const createUser = async (req: Request, res: Response): Promise<Response> => {
     try {
-        const { name, lastName, pass, email, imgUrl } =  req.body;
-        const user = new User({ name, lastName, pass, email, imgUrl });
+        const { name, lastName, pass, validatePass, email, imgUrl, rol = 'USER' } =  req.body;
+        if ( pass !== validatePass ) {
+            return res.status(400).json({
+                msg: 'The passwords do not match'
+            });
+        }
+        const user = new User({ name, lastName, pass, email, imgUrl, rol });
         await user.save();
         return res.status(201).json({
             msg: 'User created successfully',
@@ -64,6 +69,7 @@ export const updateUserById = async (req: Request, res: Response): Promise<Respo
         user.pass = req.body.pass || user.pass;
         user.email = req.body.email || user.email;
         user.imgUrl = req.body.imgUrl || user.imgUrl;
+        user.rol = req.body.rol || user.rol;
         // user.avilable = true;
         const userUpdated: IUser | null = await user.save();
         return res.status(200).json({ userUpdated });

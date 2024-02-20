@@ -1,11 +1,19 @@
 import { Schema, model, Document } from 'mongoose';
 
+// Define el enum para los roles de usuarios
+enum Roles {
+  SUPADMIN = 'superadmin',
+  ADMIN = 'administrator',
+  USER = 'user',
+}
+
 export interface IUser extends Document {
     name: string;
     lastName: string;
     pass: string;
     email: string;
     imgUrl: string;
+    rol: Roles;
     avilable: boolean;
 }
 
@@ -24,11 +32,20 @@ const userSchema = new Schema<IUser>({
   },
   email: {
       type: String,
-      required: [true, "Email is required"]
+      required: [true, "Email is required"],
+      unique: true
   },
   imgUrl: {
       type: String,
-      required: [true, "ImageUrl is required"]
+      // required: [true, "ImageUrl is required"]
+      // Change at deploying time to validate the image
+      default: 'localhost:8000/assets/userDefault.jpg'
+  },
+  rol: {
+      type: String,
+      enum: Object.values(Roles),
+      // required: [true, "Role is required"]
+      default: Roles.USER
   },
   avilable: {
       type: Boolean,
@@ -44,4 +61,4 @@ userSchema.methods.toJSON = function (): any {
   return user;
 };
 
-export default model<IUser>("Users", userSchema);
+export default model<IUser>("User", userSchema);

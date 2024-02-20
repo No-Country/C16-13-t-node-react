@@ -8,6 +8,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const express = require("express");
 const database_1 = require("../database/database");
@@ -38,16 +41,10 @@ class Server {
         this.app.use(admin_routes_1.default);
         this.app.use(user_routes_1.default);
     }
-    // static init(port: number): Server {
-    //     return new Server(port);
-    // }
     publicFolder() {
         const publicPath = path.resolve(__dirname, '../public');
         this.app.use(express.static(publicPath));
     }
-    // start(callback: () => void): void {
-    //     this.app.listen(this.port, callback);
-    // }
     listen() {
         this.app.listen(this.port, () => {
             console.log(`CORRIENDO en https://localhost:${this.port}`);

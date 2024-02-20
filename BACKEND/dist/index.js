@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 require("dotenv/config");
 // require('dotenv').config();
 const server_1 = __importDefault(require("./models/server"));
-// const port = Number(process.env.PORT) || 3000; 
+require('dotenv').config();
 // const server = Server.init(port);
 // server.app.use(noticesRoutes);
 // server.app.use(adminRoutes);
