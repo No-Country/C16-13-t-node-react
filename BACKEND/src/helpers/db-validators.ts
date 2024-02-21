@@ -7,3 +7,10 @@ export const emailExists = async( email = '' ): Promise<void> => {
     }
 }
 
+export const userExistById = async( id = ''): Promise<void> => {
+    const existUser = await User.findById( id );
+    if( !existUser ) {
+        throw new Error(`User with id: ${id} does not exist`);
+    }
+}
+

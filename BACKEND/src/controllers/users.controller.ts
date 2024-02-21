@@ -1,5 +1,7 @@
 import { Request, Response } from "express";
 import User, { IUser } from "../models/user";
+// import bcryptjs from "bcryptjs";
+const bcryptjs = require('bcryptjs');
 
 export const getUsers = async (req: Request, res: Response): Promise<Response>  => {
   try {
@@ -34,13 +36,17 @@ export const getUserById = async (req: Request, res: Response): Promise<Response
 
 export const createUser = async (req: Request, res: Response): Promise<Response> => {
     try {
-        const { name, lastName, pass, validatePass, email, imgUrl, rol = 'USER' } =  req.body;
+        const { name, lastName, pass, validatePass, email, imgUrl, rol } =  req.body;
         if ( pass !== validatePass ) {
             return res.status(400).json({
                 msg: 'The passwords do not match'
             });
         }
         const user = new User({ name, lastName, pass, email, imgUrl, rol });
+        const salt = bcryptjs.genSaltSync();
+
+        user.pass = bcryptjs.hashSync( pass, salt );
+        
         await user.save();
         return res.status(201).json({
             msg: 'User created successfully',

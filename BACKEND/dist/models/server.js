@@ -14,7 +14,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express = require("express");
 const database_1 = require("../database/database");
-const path = require("path");
 const notices_routes_1 = __importDefault(require("../routes/notices.routes"));
 const admin_routes_1 = __importDefault(require("../routes/admin.routes"));
 const user_routes_1 = __importDefault(require("../routes/user.routes"));
@@ -25,6 +24,7 @@ class Server {
         this.app = express();
         this.middlewares();
         this.dbConnecion();
+        this.publicFolder();
         this.routes();
     }
     dbConnecion() {
@@ -42,8 +42,9 @@ class Server {
         this.app.use(user_routes_1.default);
     }
     publicFolder() {
-        const publicPath = path.resolve(__dirname, '../public');
-        this.app.use(express.static(publicPath));
+        // const publicPath = path.resolve(__dirname, '../public');
+        // this.app.use(express.static(publicPath));
+        this.app.use(express.static('../public'));
     }
     listen() {
         this.app.listen(this.port, () => {

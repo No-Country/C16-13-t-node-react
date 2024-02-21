@@ -14,6 +14,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteUserById = exports.updateUserById = exports.createUser = exports.getUserById = exports.getUsers = void 0;
 const user_1 = __importDefault(require("../models/user"));
+// import bcryptjs from "bcryptjs";
+const bcryptjs = require('bcryptjs');
 const getUsers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const users = yield user_1.default.find();
@@ -56,6 +58,8 @@ const createUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
             });
         }
         const user = new user_1.default({ name, lastName, pass, email, imgUrl, rol });
+        const salt = bcryptjs.genSaltSync();
+        user.pass = bcryptjs.hashSync(pass, salt);
         yield user.save();
         return res.status(201).json({
             msg: 'User created successfully',
