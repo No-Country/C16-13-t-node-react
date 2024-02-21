@@ -51,7 +51,7 @@ const getUserById = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
 exports.getUserById = getUserById;
 const createUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { name, lastName, pass, validatePass, email, imgUrl, rol = 'USER' } = req.body;
+        const { name, lastName, pass, validatePass, email, imgUrl, rol } = req.body;
         if (pass !== validatePass) {
             return res.status(400).json({
                 msg: 'The passwords do not match'

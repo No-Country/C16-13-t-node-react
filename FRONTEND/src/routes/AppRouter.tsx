@@ -1,14 +1,13 @@
-import { Navbar, Footer } from "../components";
 import { Route, Routes } from 'react-router-dom';
-import { Home } from "../views";
+import { Private, Home } from "../views";
 import { NoticePerCategory, NoticeComplete } from "../components/notice";
 import { AdminPerfil } from "../components/admin";
+import { Login, Register } from '../auth';
 
 export const AppRouter = () => {
     
     return (
         <>
-            <Navbar />
 
             {/*RUTAS PUBLICAS */}
             <Routes>
@@ -17,14 +16,17 @@ export const AppRouter = () => {
                 <Route path="/notice" element={<Home />} />
                 <Route path="/notice/:id" element={<NoticeComplete />} />
                 <Route path="/notice/:category" element={<NoticePerCategory />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Register />} />
             </Routes>
 
             {/*RUTAS PRIVADAS*/}
             <Routes>
+                <Route path="/admin" element={<Private />} />
+                <Route path="/admin/*" element={<Private />} />
                 <Route path="/admin/perfil" element={<AdminPerfil />} />
             </Routes>
 
-            <Footer />
         </>
     )
 }
