@@ -1,8 +1,12 @@
-import {NoticeList} from "../components/notice"
+import { Footer, Navbar } from "../components"
+import { NoticeList } from "../components/notice"
 
 export const Home = () => {
   return (
-    <NoticeList/>
-    
-    )
+    <>
+      <Navbar />
+      <NoticeList />
+      <Footer />
+    </>
+  )
 }
