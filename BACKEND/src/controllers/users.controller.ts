@@ -22,9 +22,9 @@ export const getUserById = async (req: Request, res: Response): Promise<Response
   const { id } = req.params;
   try {
       const user: IUser | null = await User.findById( id );
-      if( !user ) {
-          return res.status(404).json({ msg: 'Noticia no encontrada' });
-      }
+      // if( !user ) {
+      //     return res.status(404).json({ msg: 'Noticia no encontrada' });
+      // }
       return res.status(200).json({ user });
   } catch (err) {
       console.log(err);
@@ -76,8 +76,16 @@ export const updateUserById = async (req: Request, res: Response): Promise<Respo
         user.email = req.body.email || user.email;
         user.imgUrl = req.body.imgUrl || user.imgUrl;
         user.rol = req.body.rol || user.rol;
-        // user.avilable = true;
-        const userUpdated: IUser | null = await user.save();
+
+        const password = req.body.pass || user.pass;
+
+        if ( password ) {
+          const salt = bcryptjs.genSaltSync();
+          user.pass = bcryptjs.hashSync( password, salt );
+        }
+
+        const userUpdated: IUser | null = await User.findByIdAndUpdate( id, user );
+
         return res.status(200).json({ userUpdated });
     } catch (err) {
         console.log(err);
@@ -96,9 +104,8 @@ export const deleteUserById = async (req: Request, res: Response): Promise<Respo
             return res.status(400).json({ msg: 'The user was not found' });
         }
 
-        user.avilable = false;
+        const userEliminated: IUser | null = await User.findByIdAndUpdate( id, { available: false } );
 
-        const userEliminated: IUser | null = await user.save();
         return res.status(200).json({
             msg: 'User deleted successfully',
             userEliminated

@@ -14,7 +14,7 @@ export interface IUser extends Document {
     email: string;
     imgUrl: string;
     rol: Roles;
-    avilable: boolean;
+    available: boolean;
 }
 
 const userSchema = new Schema<IUser>({
@@ -47,7 +47,7 @@ const userSchema = new Schema<IUser>({
       // required: [true, "Role is required"]
       default: Roles.USER
   },
-  avilable: {
+  available: {
       type: Boolean,
       default: true
   }
