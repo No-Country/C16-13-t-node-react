@@ -19,7 +19,7 @@ export const Navbar = () => {
     <div className='flex flex-col'>
       <nav className="flex flex-row justify-between p-2 bg-[--primary] h-20 items-center">
         <div>LOGO</div>
-        <div className="flex flex-row justify-center gap-6 m-6 text-[--secundary]">
+        <div className="flex flex-row justify-center gap-6 m-6 text-[--secundary] cursor-pointer">
           <div onClick={iniciarBusqueda}>
             {busqueda ? <FontAwesomeIcon icon={faXmark} /> : <FontAwesomeIcon icon={faMagnifyingGlass} />}
           </div>

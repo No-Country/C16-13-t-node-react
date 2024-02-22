@@ -6,7 +6,7 @@ export const Busqueda = () => {
     <div className="animacion-menu bg-[--primary] pt-2 pb-6 flex items-center flex-row justify-center">
       <div className='relative'>
         <input type="text" className="rounded-lg h-8"/>
-        <FontAwesomeIcon className="absolute block bottom-2 right-2" icon={faMagnifyingGlass} />
+        <FontAwesomeIcon className="absolute block bottom-2 right-2 cursor-pointer" icon={faMagnifyingGlass} />
       </div>
 
     </div>
