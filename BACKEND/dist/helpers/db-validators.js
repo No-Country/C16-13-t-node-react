@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.emailExists = void 0;
+exports.userExistById = exports.emailExists = void 0;
 const user_1 = __importDefault(require("../models/user"));
 const emailExists = (email = '') => __awaiter(void 0, void 0, void 0, function* () {
     const existsEmail = yield user_1.default.findOne({ email });
@@ -21,3 +21,10 @@ const emailExists = (email = '') => __awaiter(void 0, void 0, void 0, function* 
     }
 });
 exports.emailExists = emailExists;
+const userExistById = (id = '') => __awaiter(void 0, void 0, void 0, function* () {
+    const existUser = yield user_1.default.findById(id);
+    if (!existUser) {
+        throw new Error(`User with id: ${id} does not exist`);
+    }
+});
+exports.userExistById = userExistById;

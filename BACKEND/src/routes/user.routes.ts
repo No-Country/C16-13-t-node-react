@@ -16,7 +16,9 @@ const userRouter = Router();
 
 userRouter.get('/user', getUsers);
 
-userRouter.get('/user/:id', getUserById);
+userRouter.get('/user/:id', [
+  check('id').custom( userExistById ),
+], getUserById);
 
 userRouter.post('/user', [
   check('name', 'Name is required').not().isEmpty(),

@@ -14,8 +14,19 @@ userRouter.post('/user', [
     (0, express_validator_1.check)('email', 'The email is not valid').isEmail(),
     (0, express_validator_1.check)('email').custom(db_validators_1.emailExists),
     (0, express_validator_1.check)('rol', 'It is not a valid role').isIn(['superadmin', 'administrator', 'user']),
+    // isAdminRole
     validate_fields_1.validateFields
 ], users_controller_1.createUser);
-userRouter.put('/user/:id', users_controller_1.updateUserById);
-userRouter.delete('/user/:id', users_controller_1.deleteUserById);
+userRouter.put('/user/:id', [
+    (0, express_validator_1.check)('id', 'Is not valid id').isMongoId(),
+    (0, express_validator_1.check)('id').custom(db_validators_1.userExistById),
+    validate_fields_1.validateFields
+], users_controller_1.updateUserById);
+userRouter.delete('/user/:id', [
+    // validateJWT,
+    // isAdminRole,
+    (0, express_validator_1.check)('id', 'Is not valid id').isMongoId(),
+    (0, express_validator_1.check)('id').custom(db_validators_1.userExistById),
+    validate_fields_1.validateFields
+], users_controller_1.deleteUserById);
 exports.default = userRouter;
