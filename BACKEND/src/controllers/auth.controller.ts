@@ -1,10 +1,9 @@
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 const bcryptjs = require('bcryptjs');
 
 import User from '../models/user';
 
-// import { generateJWT } from '../helpers/generate-jwt';
-// import { json } from 'express/lib/response';
+import { generateJWT, verifyToken } from '../helpers/generate-jwt';
 
 export const login = async ( req: Request, res: Response ) => {
 
@@ -31,14 +30,13 @@ export const login = async ( req: Request, res: Response ) => {
       })
     }
 
-    // const token = await generateJWT( user.id );
+    const token = await generateJWT( user.id );
 
     res.json({
       user,
       // token
     })
 
-    
   } catch (error) {
     console.log(error);
     res.status(500).json({
@@ -46,5 +44,27 @@ export const login = async ( req: Request, res: Response ) => {
     })
     
   }
+
+}
+
+export const validateToken = async ( req: Request, res: Response, next: NextFunction ) => {
+
+  let token = req.headers['authorization'];
+
+  if ( !token ) {
+    res.status(401).json({
+      msg: 'Token is not valid'
+    });
+  }
+
+  const validToken = await verifyToken( token );
+
+  if ( !validToken ) {
+    res.status(401).json({
+      msg: 'Token is not valid'
+    });
+  }
+
+  next();
 
 }

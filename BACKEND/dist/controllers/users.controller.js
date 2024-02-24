@@ -14,7 +14,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteUserById = exports.updateUserById = exports.createUser = exports.getUserById = exports.getUsers = void 0;
 const user_1 = __importDefault(require("../models/user"));
-// import bcryptjs from "bcryptjs";
 const bcryptjs = require('bcryptjs');
 const getUsers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -36,9 +35,9 @@ const getUserById = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     const { id } = req.params;
     try {
         const user = yield user_1.default.findById(id);
-        if (!user) {
-            return res.status(404).json({ msg: 'Noticia no encontrada' });
-        }
+        // if( !user ) {
+        //     return res.status(404).json({ msg: 'Noticia no encontrada' });
+        // }
         return res.status(200).json({ user });
     }
     catch (err) {
@@ -51,12 +50,7 @@ const getUserById = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
 exports.getUserById = getUserById;
 const createUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { name, lastName, pass, validatePass, email, imgUrl, rol } = req.body;
-        if (pass !== validatePass) {
-            return res.status(400).json({
-                msg: 'The passwords do not match'
-            });
-        }
+        const { name, lastName, pass, email, imgUrl, rol } = req.body;
         const user = new user_1.default({ name, lastName, pass, email, imgUrl, rol });
         const salt = bcryptjs.genSaltSync();
         user.pass = bcryptjs.hashSync(pass, salt);
@@ -87,8 +81,12 @@ const updateUserById = (req, res) => __awaiter(void 0, void 0, void 0, function*
         user.email = req.body.email || user.email;
         user.imgUrl = req.body.imgUrl || user.imgUrl;
         user.rol = req.body.rol || user.rol;
-        // user.avilable = true;
-        const userUpdated = yield user.save();
+        const password = req.body.pass || user.pass;
+        if (password) {
+            const salt = bcryptjs.genSaltSync();
+            user.pass = bcryptjs.hashSync(password, salt);
+        }
+        const userUpdated = yield user_1.default.findByIdAndUpdate(id, user);
         return res.status(200).json({ userUpdated });
     }
     catch (err) {
@@ -106,8 +104,7 @@ const deleteUserById = (req, res) => __awaiter(void 0, void 0, void 0, function*
         if (!user) {
             return res.status(400).json({ msg: 'The user was not found' });
         }
-        user.avilable = false;
-        const userEliminated = yield user.save();
+        const userEliminated = yield user_1.default.findByIdAndUpdate(id, { available: false });
         return res.status(200).json({
             msg: 'User deleted successfully',
             userEliminated

@@ -7,7 +7,9 @@ const db_validators_1 = require("../helpers/db-validators");
 const validate_fields_1 = require("../middlewares/validate-fields");
 const userRouter = (0, express_1.Router)();
 userRouter.get('/user', users_controller_1.getUsers);
-userRouter.get('/user/:id', users_controller_1.getUserById);
+userRouter.get('/user/:id', [
+    (0, express_validator_1.check)('id').custom(db_validators_1.userExistById),
+], users_controller_1.getUserById);
 userRouter.post('/user', [
     (0, express_validator_1.check)('name', 'Name is required').not().isEmpty(),
     (0, express_validator_1.check)('pass', 'Password is required').isLength({ min: 8 }),

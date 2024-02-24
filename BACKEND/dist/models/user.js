@@ -49,7 +49,7 @@ const userSchema = new mongoose_1.Schema({
         // required: [true, "Role is required"]
         default: Roles.USER
     },
-    avilable: {
+    available: {
         type: Boolean,
         default: true
     }

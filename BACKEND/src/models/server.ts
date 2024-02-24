@@ -1,10 +1,11 @@
-import express = require('express');
+import express from 'express'; 
 import { dbConnecion } from '../database/database';
-import path = require('path');
+const path = require('path'); 
 
 import noticesRouter from '../routes/notices.routes';
 import adminRouter from '../routes/admin.routes';
 import userRouter from '../routes/user.routes';
+import authRouter from '../routes/auth.routes';
 
 const cors = require('cors');
 
@@ -34,6 +35,7 @@ export default class Server {
         this.app.use(noticesRouter);
         this.app.use(adminRouter);
         this.app.use(userRouter);
+        this.app.use(authRouter);
     }
 
     private publicFolder() {
