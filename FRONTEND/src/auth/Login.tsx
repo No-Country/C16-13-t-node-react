@@ -27,7 +27,7 @@ export const Login = () => {
       <li className="list-none">¿No tienes cuenta?<Link to="/register"> Regístrate</Link></li>
       <div className="inline-flex items-center justify-center w-full">
         <hr className="w-64 h-px my-8 bg-gray-900 border-0 dark:bg-gray-900" />
-        <span className="absolute px-3 font-medium text-gray-900 -translate-x-1/2 bg-white left-1/2 dark:text-white dark:bg-gray-900">O también</span>
+        <span className="absolute px-3 font-medium text-gray-900 -translate-x-1/2 bg-[#F2F2F2] left-1/2 dark:text-white dark:bg-gray-900">O también</span>
       </div>
       <div className="flex gap-12 mb-8 ">
         <Link to={""}><FontAwesomeIcon icon={faSquareInstagram} size="2x"/></Link>
