@@ -1,7 +1,7 @@
 import {  useState } from "react";
 import { Link } from "react-router-dom";
 import { Alerta } from "../components/utils";
-import userAdminService from '../service/userAdminServise';
+import userAdminService from '../service/userAdminService';
 
 
 export const Register = () => {
