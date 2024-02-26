@@ -4,7 +4,7 @@
     return (
       <>
         {error ? (
-          <div className="bg-[--elert] text-white">{msj}</div>
+          <div className="bg-red-400 text-white">{msj}</div>
         ) : (
           <div className="bg-[--succes] text-white">{msj}</div>
         )}

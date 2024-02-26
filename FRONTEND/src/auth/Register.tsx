@@ -1,6 +1,8 @@
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import { Link } from "react-router-dom";
 import { Alerta } from "../components/utils";
+import userAdminService from '../service/userAdminServise';
+
 
 export const Register = () => {
 
@@ -8,12 +10,11 @@ export const Register = () => {
   const [repetirPass, setRepetirPass] = useState("");
   const [mensaje, setMensaje] = useState({});
   const [formData, setFormData] = useState({
-    nombre: '',
-    apellido: '',
+    name: '',
+    lastName: '',
     email: '',
-    contraseña: '',
-    repetirContraseña: '',
-    urlfoto: '',
+    pass: '',
+    imgUrl: '',
     rol: 'usuario'
   });
 
@@ -26,14 +27,16 @@ export const Register = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
     try {
-      console.log(formData);
+      console.log(formData)
+      const data = await userAdminService.registrarUsuario(formData);
+      console.log(data);
       setMensaje({ msj: "Registrado exitosamente", error: false })
       console.log(mensaje)
     } catch (error) {
-      setMensaje({ msj: "Error al registrar el usuario", error: false })
+      setMensaje({ msj: "Error al registrar el usuario", error: true })
     }
   };
 
@@ -44,11 +47,11 @@ export const Register = () => {
       <form onSubmit={handleSubmit}>
         <div className="mb-2">
           <label htmlFor="nombre" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre</label>
-          <input type="text" id="nombre" name="nombre" value={formData.nombre} onChange={handleChange} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
+          <input type="text" id="name" name="name" value={formData.name} onChange={handleChange} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
         </div>
         <div className="mb-2">
           <label htmlFor="apellido" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Apellido</label>
-          <input type="text" id="apellido" name="apellido" value={formData.apellido} onChange={handleChange} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
+          <input type="text" id="lastName" name="lastName" value={formData.lastName} onChange={handleChange} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
         </div>
         <div className="mb-2">
           <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
@@ -56,7 +59,7 @@ export const Register = () => {
         </div>
         <div className="mb-2">
           <label htmlFor="contraseña" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Contraseña</label>
-          <input type="password" id="contraseña" name="contraseña" value={formData.contraseña} onChange={handleChange} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
+          <input type="password" id="pass" name="pass" value={formData.pass} onChange={handleChange} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
         </div>
         <div className="mb-2">
           <label htmlFor="repetirContraseña" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Repite la contraseña</label>
@@ -64,7 +67,7 @@ export const Register = () => {
         </div>
         <div className="mb-2">
           <label htmlFor="urlfoto" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">URL de la foto de perfil</label>
-          <input type="text" id="urlfoto" name="urlfoto" value={formData.urlfoto} onChange={handleChange} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
+          <input type="text" id="imgUrl" name="imgUrl" value={formData.imgUrl} onChange={handleChange} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
         </div>
         <div className="mb-2">
           <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">contraseña admin/superadmin</label>
