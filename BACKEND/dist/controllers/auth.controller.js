@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.login = void 0;
+exports.validateToken = exports.login = void 0;
 const bcryptjs = require('bcryptjs');
 const user_1 = __importDefault(require("../models/user"));
 const generate_jwt_1 = require("../helpers/generate-jwt");
@@ -50,3 +50,19 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.login = login;
+const validateToken = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    let token = req.headers['authorization'];
+    if (!token) {
+        res.status(401).json({
+            msg: 'Token is not valid'
+        });
+    }
+    const validToken = yield (0, generate_jwt_1.verifyToken)(token);
+    if (!validToken) {
+        res.status(401).json({
+            msg: 'Token is not valid'
+        });
+    }
+    next();
+});
+exports.validateToken = validateToken;
