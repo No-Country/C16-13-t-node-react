@@ -7,64 +7,64 @@ import { generateJWT, verifyToken } from '../helpers/generate-jwt';
 
 export const login = async ( req: Request, res: Response ) => {
 
-  const { email, password } = req.params;
+    const { email, password } = req.params;
 
-  try {
-    const user = await User.findOne({ email });
-    if ( !user ) {
-      return res.status(400).json({
-        msg: 'User / Password not valid - enail '
-      });
+    try {
+        const user = await User.findOne({ email });
+        if ( !user ) {
+            return res.status(400).json({
+                msg: 'User / Password not valid - enail '
+            });
+        }
+
+        if ( !user.available ) {
+            return res.status(400).json({
+                msg: 'User / Password not valid - available: false'
+            })
+        }
+
+        const validPassword = bcryptjs.compareSync( password, user.pass );
+        if ( !validPassword ) {
+            return res.status(400).json({
+                msg: 'User / Password not valid - password'
+            })
+        }
+
+        const token = await generateJWT( user.id );
+
+        res.json({
+            user,
+            token
+        })
+
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            msg: 'Contact administrator'
+        });
+        
     }
-
-    if ( !user.available ) {
-      return res.status(400).json({
-        msg: 'User / Password not valid - available: false'
-      })
-    }
-
-    const validPassword = bcryptjs.compareSync( password, user.pass );
-    if ( !validPassword ) {
-      return res.status(400).json({
-        msg: 'User / Password not valid - password'
-      })
-    }
-
-    const token = await generateJWT( user.id );
-
-    res.json({
-      user,
-      // token
-    })
-
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({
-      msg: 'Contact administrator'
-    })
-    
-  }
 
 }
 
 export const validateToken = async ( req: Request, res: Response, next: NextFunction ) => {
 
-  let token = req.headers['authorization'];
+    let token = req.headers['authorization'];
 
-  if ( !token ) {
-    res.status(401).json({
-      msg: 'Token is not valid'
-    });
-  }
+    if ( !token ) {
+        res.status(401).json({
+            msg: 'Token is not valid'
+        });
+    }
 
-  const validToken = await verifyToken( token );
+    const validToken = await verifyToken( token );
 
-  if ( !validToken ) {
-    res.status(401).json({
-      msg: 'Token is not valid'
-    });
-  }
+    if ( !validToken ) {
+        res.status(401).json({
+            msg: 'Token is not valid'
+        });
+    }
 
-  next();
+    next();
 
 }
