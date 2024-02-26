@@ -21,7 +21,6 @@ export const Login = () => {
       </form>
       <div className="flex flex-row gap-11 p-3">
         <label><input type="checkbox" /> Recuerdame</label>
-        <a href="#">Recuperar contraseña</a>
       </div>
       <button className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Iniciar Sesión</button>
       <li className="list-none">¿No tienes cuenta?<Link to="/register"> Regístrate</Link></li>
@@ -29,11 +28,11 @@ export const Login = () => {
         <hr className="w-64 h-px my-8 bg-gray-900 border-0 dark:bg-gray-900" />
         <span className="absolute px-3 font-medium text-gray-900 -translate-x-1/2 bg-[#F2F2F2] left-1/2 dark:text-white dark:bg-gray-900">O también</span>
       </div>
-      <div className="flex gap-12 mb-8 ">
-        <Link to={""}><FontAwesomeIcon icon={faSquareInstagram} size="2x"/></Link>
-        <Link to={""}><FontAwesomeIcon icon={faSquareFacebook}  size="2x"/></Link>
-        <Link to={""}><FontAwesomeIcon icon={faSquareTwitter}   size="2x"/></Link>
-      </div>
+      {/*<div className="flex gap-12 mb-8 ">
+        <FontAwesomeIcon icon={faSquareInstagram} size="2x"/>
+        <FontAwesomeIcon icon={faSquareFacebook}  size="2x"/>
+        <FontAwesomeIcon icon={faSquareTwitter}   size="2x"/>
+  </div>*/}
     </div>
   )
 }
