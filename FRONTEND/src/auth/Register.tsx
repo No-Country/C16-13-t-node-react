@@ -1,21 +1,22 @@
 import {  useState } from "react";
+import { FormEvent } from 'react'; 
 import { Link } from "react-router-dom";
 import { Alerta } from "../components/utils";
 import userAdminService from '../service/userAdminService';
+import { Mensaje } from "../interface/MensajeAlerta";
 
 
 export const Register = () => {
 
-
+  const [mensaje, setMensaje] = useState<Mensaje>({ msg: '', error: false });
   const [repetirPass, setRepetirPass] = useState("");
-  const [mensaje, setMensaje] = useState({});
   const [formData, setFormData] = useState({
     name: '',
     lastName: '',
     email: '',
     pass: '',
     imgUrl: '',
-    rol: 'usuario'
+    rol: 'user'
   });
 
 
@@ -27,16 +28,17 @@ export const Register = () => {
     }));
   };
 
-  const handleSubmit = async(e) => {
+  const handleSubmit = async(e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
       console.log(formData)
       const data = await userAdminService.registrarUsuario(formData);
       console.log(data);
-      setMensaje({ msj: "Registrado exitosamente", error: false })
+      setMensaje({ msg: "Registrado exitosamente", error: false })
       console.log(mensaje)
     } catch (error) {
-      setMensaje({ msj: "Error al registrar el usuario", error: true })
+      const errorData: string = error.response.data.errors[0].msg;
+      setMensaje({ msg: errorData, error: true })
     }
   };
 
@@ -76,12 +78,12 @@ export const Register = () => {
         <li className="list-none mb-2">¿Ya tienes cuenta?<Link to="/login"> Leogeate</Link></li>
         <button type="submit" className="text-white bg-[--secundary] hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Registrarse</button>
 
-        {
-          <Alerta mensaje={mensaje} />
-        }
-
+      
 
       </form>
+        {
+          mensaje.msg !== "" && <Alerta mensaje={mensaje} />
+        }
     </div>
   );
 };
