@@ -7,6 +7,8 @@ import adminRouter from '../routes/admin.routes';
 import userRouter from '../routes/user.routes';
 import authRouter from '../routes/auth.routes';
 
+import { validateToken } from '../controllers/auth.controller';
+
 const cors = require('cors');
 
 export default class Server {
@@ -36,6 +38,8 @@ export default class Server {
         this.app.use(adminRouter);
         this.app.use(userRouter);
         this.app.use(authRouter);
+        // Validate token path /secure routing
+        this.app.use('/secure', validateToken);
     }
 
     private publicFolder() {

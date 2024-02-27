@@ -1,3 +1,4 @@
+import Notices from "../models/notices";
 import User from "../models/user"
 
 export const emailExists = async( email = '' ): Promise<void> => {
@@ -14,3 +15,9 @@ export const userExistById = async( id = ''): Promise<void> => {
     }
 }
 
+export const noticesExistById = async( id = '' ): Promise<void> => {
+    const existNotice = await Notices.findById( id );
+    if( !existNotice ) {
+        throw new Error(`Notice with id: ${id} does not exist`);
+    }
+}
