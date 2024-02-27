@@ -9,3 +9,8 @@ package-lock.json
 
 # IDE dependencies
 .vscode
+
+# Testing files
+builders
+__test__
+__test__/*.*
