@@ -4,6 +4,7 @@ import { faBars, faMagnifyingGlass, faXmark } from '@fortawesome/free-solid-svg-
 import { Menu, Busqueda } from './';
 
 export const Navbar = () => {
+
   const [menuHamb, setMenuHamb] = useState(false);
   const [busqueda, setBusqueda] = useState(false);
 
@@ -16,16 +17,14 @@ export const Navbar = () => {
   }
 
   return (
-    <div className='flex flex-col'>
-      <nav className="flex flex-row justify-between p-2 bg-[--primary] h-20 items-center">
+    <div className='bg-[--primary] px-3'>
+      <nav className="flex flex-row justify-between items-center h-20">
+        <div onClick={mostrarMenu}>
+          {menuHamb ? <FontAwesomeIcon icon={faXmark} /> : <FontAwesomeIcon icon={faBars} />}
+        </div>
         <div>LOGO</div>
-        <div className="flex flex-row justify-center gap-6 m-6 text-[--secundary] cursor-pointer">
-          <div onClick={iniciarBusqueda}>
-            {busqueda ? <FontAwesomeIcon icon={faXmark} /> : <FontAwesomeIcon icon={faMagnifyingGlass} />}
-          </div>
-          <div onClick={mostrarMenu}>
-            {menuHamb ? <FontAwesomeIcon icon={faXmark} /> : <FontAwesomeIcon icon={faBars} />}
-          </div>
+        <div onClick={iniciarBusqueda}>
+          {busqueda ? <FontAwesomeIcon icon={faXmark} /> : <FontAwesomeIcon icon={faMagnifyingGlass} />}
         </div>
       </nav>
       <div>
@@ -35,3 +34,23 @@ export const Navbar = () => {
     </div>
   );
 }
+
+// return (
+//   <div className='flex flex-col'>
+//     <nav className="flex flex-row justify-between p-2 bg-[--primary] h-20 items-center">
+//       <div>LOGO</div>
+//       <div className="flex flex-row justify-center gap-6 m-6 text-[--secundary] cursor-pointer">
+//         <div onClick={iniciarBusqueda}>
+//           {busqueda ? <FontAwesomeIcon icon={faXmark} /> : <FontAwesomeIcon icon={faMagnifyingGlass} />}
+//         </div>
+//         <div onClick={mostrarMenu}>
+//           {menuHamb ? <FontAwesomeIcon icon={faXmark} /> : <FontAwesomeIcon icon={faBars} />}
+//         </div>
+//       </div>
+//     </nav>
+//     <div>
+//       {menuHamb && <Menu />}
+//       {busqueda && <Busqueda />}
+//     </div>
+//   </div>
+// );

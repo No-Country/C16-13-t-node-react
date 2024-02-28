@@ -1,6 +1,5 @@
 import { Mensaje } from '../../interface/MensajeAlerta';
 
-
 export const Alerta = ({ mensaje }: { mensaje: Mensaje }) => {
   
     const { error, msg } = mensaje;

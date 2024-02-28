@@ -11,8 +11,10 @@ export const AppRouter = () => {
             {/* RUTAS PUBLICAS */}
             <Route path="/" element={<Home />} />
             <Route path="/notice" element={<Home />} />
+            
             <Route path="/notice/:id" element={<NoticeComplete />} />
             <Route path="/notice/:category" element={<NoticePerCategory />} />
+
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
 
@@ -21,6 +23,5 @@ export const AppRouter = () => {
                 <Route path="/admin/perfil" element={<AdminPerfil />} />
             </Route>
         </Routes>
-
     )
 }
