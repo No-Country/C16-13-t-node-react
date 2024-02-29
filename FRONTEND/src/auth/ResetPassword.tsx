@@ -40,7 +40,7 @@ export const ResetPassword = () => {
             <div className="block mt-4">
 
               <button className='w-full inline-flex justify-center items-center px-4 py-2 bg-[#2564f8] border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-900 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150'>
-                Enviar
+                Enviar|
               </button>
 
             </div>
