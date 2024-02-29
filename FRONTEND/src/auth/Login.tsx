@@ -4,7 +4,6 @@ import { Link } from "react-router-dom"
 import authService from "../service/authService";
 import { Alerta } from '../components/utils'
 import { Mensaje } from "../interface/MensajeAlerta";
-import axios from "axios";
 /*import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSquareFacebook, faSquareInstagram, faSquareTwitter } from "@fortawesome/free-brands-svg-icons";*/AbstractRange
 
@@ -30,14 +29,14 @@ export const Login = () => {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-        const data = await axios.post('http://localhost:8080/login', formData);
-        console.log(data);
+      const data = await authService.authenticateUser(formData);
+      console.log(data)
     } catch (error) {
-        const errorData: string = error.response.data.errors[0].msg;
-        setMensaje({ msg: errorData, error: true });
+      const errorData: string = error.response.data.errors[0].msg;
+      setMensaje({ msg: errorData, error: true })
     }
-};
 
+  }
 
 
   return (
