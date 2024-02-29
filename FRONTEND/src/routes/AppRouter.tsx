@@ -3,6 +3,8 @@ import { Private, Home } from "../views";
 import { NoticePerCategory, NoticeComplete } from "../components/notice";
 import { AdminPerfil } from "../components/admin";
 import { Login, Register } from '../auth';
+import { ResetPassword } from '../auth/ResetPassword';
+import { MockupLogin } from '../auth/Mockup';
 
 export const AppRouter = () => {
 
@@ -17,6 +19,8 @@ export const AppRouter = () => {
 
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/reset-password" element={<ResetPassword />} />
+            <Route path="/mockup" element={<MockupLogin />} />
 
             {/* RUTAS PRIVADAS */}
             <Route path="/admin" element={<Private />}>

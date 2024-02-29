@@ -1,6 +1,6 @@
 import {  useState } from "react";
 import { FormEvent } from 'react'; 
-import { Link } from "react-router-dom";
+import { Link, useResolvedPath } from "react-router-dom";
 import { Alerta } from "../components/utils";
 import userAdminService from '../service/userAdminService';
 import { Mensaje } from "../interface/MensajeAlerta";
@@ -8,6 +8,7 @@ import { Mensaje } from "../interface/MensajeAlerta";
 
 export const Register = () => {
 
+  const { pathname } = useResolvedPath('');
   const [mensaje, setMensaje] = useState<Mensaje>({ msg: '', error: false });
   const [repetirPass, setRepetirPass] = useState("");
   const [formData, setFormData] = useState({
@@ -20,7 +21,7 @@ export const Register = () => {
   });
 
 
-  const handleChange = (e) => {
+  const handleChange = (e: any) => {
     const { name, value, type, checked } = e.target;
     setFormData(prevState => ({
       ...prevState,
@@ -28,7 +29,7 @@ export const Register = () => {
     }));
   };
 
-  const handleSubmit = async(e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async(e: FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
     try {
       console.log(formData)
@@ -42,48 +43,220 @@ export const Register = () => {
     }
   };
 
-
   return (
-    <div className=" grid place-items-center bg-[--primary]">
-      <h2 className="text-center uppercase font-extrabold">Registrate</h2>
-      <form onSubmit={handleSubmit}>
-        <div className="mb-2">
-          <label htmlFor="nombre" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre</label>
-          <input type="text" id="name" name="name" value={formData.name} onChange={handleChange} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
-        </div>
-        <div className="mb-2">
-          <label htmlFor="apellido" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Apellido</label>
-          <input type="text" id="lastName" name="lastName" value={formData.lastName} onChange={handleChange} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
-        </div>
-        <div className="mb-2">
-          <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
-          <input type="email" id="email" name="email" value={formData.email} onChange={handleChange} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@flowbite.com" required />
-        </div>
-        <div className="mb-2">
-          <label htmlFor="contraseña" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Contraseña</label>
-          <input type="password" id="pass" name="pass" value={formData.pass} onChange={handleChange} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
-        </div>
-        <div className="mb-2">
-          <label htmlFor="repetirContraseña" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Repite la contraseña</label>
-          <input type="password" id="repetirContraseña" name="repetirContraseña" value={repetirPass} onChange={(e) => setRepetirPass(e.target.value)} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
-        </div>
-        <div className="mb-2">
-          <label htmlFor="urlfoto" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">URL de la foto de perfil</label>
-          <input type="text" id="imgUrl" name="imgUrl" value={formData.imgUrl} onChange={handleChange} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
-        </div>
-        <div className="mb-2">
-          <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">contraseña admin/superadmin</label>
-          <input type="password" onChange={handleChange} value={formData.rol} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="password de admin si posees" />
-        </div>
-        <li className="list-none mb-2">¿Ya tienes cuenta?<Link to="/login"> Leogeate</Link></li>
-        <button type="submit" className="text-white bg-[--secundary] hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Registrarse</button>
-
-      
-
-      </form>
+    <div className="font-sans text-gray-900 antialiased">
+      <div className="min-h-screen flex items-center justify-center p-6 bg-[#FFF]">
+      <div className="container max-w-screen-lg mx-auto">
+        <div>
         {
-          mensaje.msg !== "" && <Alerta mensaje={mensaje} />
+          ( pathname ===  '/register')
+          ? (
+            <>
+              <h2 className="text-center sm:text-start font-semibold text-xl text-gray-600">
+                <span className="bg-[#2564f8] text-white px-2 py-1 rounded-lg">Registrate</span>
+              </h2>
+              <p className="text-center sm:text-start text-gray-500 mb-6">
+                Se necesita de la siguiente información para crear la cuenta
+              </p>
+            </>
+            )
+          : ( 
+            <>
+              <h2 className="text-center font-semibold text-xl text-gray-600">
+                Nuevo usuario
+              </h2>
+              <p className="text-gray-500 mb-6">
+                Crea un nuevo usuario y agrégalo, eh informale por correo electrónico
+              </p>
+            </>
+            )
         }
+
+          <form 
+            onSubmit={handleSubmit}
+            className="shadow-lg p-4 px-4 md:p-8 mb-6 bg-[#F2F2F2] rounded-2xl"
+          >
+            <div className="grid gap-4 gap-y-2 text-sm grid-cols-1 lg:grid-cols-3">
+              <div className="text-gray-600">
+                <p className="font-semibold text-lg">
+                  Datos personales
+                </p>
+                <p className="font-medium">
+                  Por favor llena todos los campos
+                </p>
+              </div>
+
+              <div className="lg:col-span-2">
+                <div className="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-4">
+                  <div className="md:col-span-4">
+                    <label htmlFor="name">Nombre</label>
+                    <input 
+                      type="text" 
+                      name="name" 
+                      id="name" 
+                      value={formData.name} 
+                      onChange={handleChange} 
+                      className="h-10 border mt-1 rounded-xl px-4 w-full bg-[#FFF] outline-[#2564f8]"
+                    />
+                  </div>
+
+                  <div className="md:col-span-4">
+                    <label htmlFor="lastName">Apellido</label>
+                    <input 
+                      type="text"
+                      name="lastName"
+                      id="lastName"
+                      value={formData.lastName}
+                      onChange={handleChange}
+                      className="h-10 border mt-1 rounded-xl px-4 w-full bg-[#FFF] outline-[#2564f8]"
+                    />
+                  </div>
+
+                  <div className="md:col-span-4">
+                    <label htmlFor="email">Correo electrónico</label>
+                    <input 
+                      type="email"
+                      name="email"
+                      id="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      className="h-10 border mt-1 rounded-xl px-4 w-full bg-[#FFF] outline-[#2564f8]"
+                      placeholder="email@domain.com"
+                    />
+                  </div>
+
+                  {
+                    ( pathname === '/register' )
+                    ? (
+                        <>
+                          <div className="md:col-span-2">
+                            <label htmlFor="pass">Contraseña</label>
+                            <input 
+                              type="password"
+                              name="pass"
+                              id="pass"
+                              value={formData.pass}
+                              onChange={handleChange}
+                              className="h-10 border mt-1 rounded-xl px-4 w-full bg-[#FFF] outline-[#2564f8]"
+                              placeholder="********"
+                            />
+                          </div>
+                          <div className="md:col-span-2">
+                            <label htmlFor="repetirContraseña">Repetir contraseña</label>
+                            <input 
+                              type="password"
+                              name="repetirContraseña"
+                              id="repetirContraseña"
+                              value={repetirPass}
+                              onChange={(e) => setRepetirPass(e.target.value)}
+                              className="h-10 border mt-1 rounded-xl px-4 w-full bg-[#FFF] outline-[#2564f8]"
+                              placeholder="********"
+                            />
+                          </div>
+                        </>
+                      )
+                    : (
+                        <div className="md:col-span-2">
+                          <label htmlFor="pass">Contraseña</label>
+                          <input 
+                            type="password"
+                            name="pass"
+                            id="pass"
+                            value={formData.pass}
+                            onChange={handleChange}
+                            className="h-10 border mt-1 rounded-xl px-4 w-full bg-[#FFF] outline-[#2564f8]"
+                            placeholder="********"
+                          />
+                        </div>
+                      )
+                  }
+
+                  <div className="md:col-span-4">
+                    <label htmlFor="imgUrl">URL de la foto de perfil</label>
+                    <input 
+                      type="text"
+                      name="imgUrl"
+                      id="imgUrl"
+                      value={formData.imgUrl}
+                      onChange={handleChange}
+                      className="h-10 border mt-1 rounded-xl px-4 w-full bg-[#FFF] outline-[#2564f8]"
+                      placeholder="https://www.example.com"
+                    />
+                  </div>
+
+                  <div className="md:col-span-2">
+                    <label htmlFor="admin">Contraseña admin/superadmin</label>
+                    <input 
+                      type="password"
+                      name="admin"
+                      id="admin"
+                      onChange={handleChange}
+                      value={formData.rol}
+                      className="h-10 border mt-1 rounded-xl px-4 w-full bg-[#FFF] outline-[#2564f8]"
+                      placeholder="password de admin si posees"
+                    />
+                  </div>
+
+                  {
+                    ( pathname === '/register' )
+                    ? (
+                        <>
+                        </>
+                      )
+                    : (
+                        <div className="md:col-span-5">
+                          <div className="inline-flex items-center">
+                            <input 
+                              type="checkbox"
+                              name="billing_same"
+                              id="billing_same"
+                              className="htmlForm-checkbox"
+                            />
+                            <label htmlFor="billing_same" className="ml-2">Enviar email de confirmación</label>
+                          </div>
+                        </div>
+                      )
+                  }
+
+                  <div className="md:col-span-5 text-right">
+                    <div className="inline-flex items-end">
+                      <button 
+                        type="submit"
+                        className="bg-[#2564f8] hover:bg-blue-900 text-white font-bold py-2 px-4 rounded-md"
+                      >
+                        Registrar
+                      </button>
+                    </div>
+                  </div>
+
+                  
+
+                </div>
+              </div>
+            </div>
+            {
+              ( pathname === '/register')
+              ? (
+                  <div className="sm:relative">
+                    <div className="sm:absolute sm:bottom-1">
+                      <span className="text-xs sm:text-sm">¿Ya tienes cuenta? <Link to={'/login'} className="hover:underline">Logeate</Link></span>
+                    </div>
+                  </div>
+                )
+              : (
+                  <>
+                    {/* <span>nuevo usuario</span> */}
+                  </>
+                )
+            }
+          </form>  
+          {
+            mensaje.msg !== "" && <Alerta mensaje={mensaje} />
+          }
+        </div>
+
+      </div>
     </div>
+  </div>
   );
 };

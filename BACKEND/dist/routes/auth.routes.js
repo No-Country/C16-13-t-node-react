@@ -10,7 +10,4 @@ authRouter.post('/login', [
     (0, express_validator_1.check)('password', 'The password is required').not().isEmpty(),
     validate_fields_1.validateFields
 ], auth_controller_1.login);
-
-authRouter.use('/secure', auth_controller_1.validateToken);
-
 exports.default = authRouter;

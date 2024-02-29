@@ -19,7 +19,6 @@ const notices_routes_1 = __importDefault(require("../routes/notices.routes"));
 const admin_routes_1 = __importDefault(require("../routes/admin.routes"));
 const user_routes_1 = __importDefault(require("../routes/user.routes"));
 const auth_routes_1 = __importDefault(require("../routes/auth.routes"));
-
 const auth_controller_1 = require("../controllers/auth.controller");
 const cors = require('cors');
 class Server {
