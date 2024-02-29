@@ -12,7 +12,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.userExistById = exports.emailExists = void 0;
+exports.noticesExistById = exports.userExistById = exports.emailExists = void 0;
+const notices_1 = __importDefault(require("../models/notices"));
 const user_1 = __importDefault(require("../models/user"));
 const emailExists = (email = '') => __awaiter(void 0, void 0, void 0, function* () {
     const existsEmail = yield user_1.default.findOne({ email });
@@ -28,3 +29,10 @@ const userExistById = (id = '') => __awaiter(void 0, void 0, void 0, function* (
     }
 });
 exports.userExistById = userExistById;
+const noticesExistById = (id = '') => __awaiter(void 0, void 0, void 0, function* () {
+    const existNotice = yield notices_1.default.findById(id);
+    if (!existNotice) {
+        throw new Error(`Notice with id: ${id} does not exist`);
+    }
+});
+exports.noticesExistById = noticesExistById;
