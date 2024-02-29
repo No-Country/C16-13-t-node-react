@@ -8,7 +8,7 @@ const authRouter = Router();
 
 authRouter.post('/login', [
   check('email', 'The email is not valid').isEmail(),
-  check('password', 'The password is required').not().isEmpty(),
+  check('pass', 'The password is required').not().isEmpty(),
   validateFields
 ], login  );
 

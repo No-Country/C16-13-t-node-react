@@ -5,32 +5,33 @@ import User from '../models/user';
 
 import { generateJWT, verifyToken } from '../helpers/generate-jwt';
 
-export const login = async ( req: Request, res: Response ) => {
+export const login = async (req: Request, res: Response) => {
 
-    const { email, password } = req.params;
+    const { email, pass } = req.body;
 
     try {
         const user = await User.findOne({ email });
-        if ( !user ) {
+
+        if (!user) {
             return res.status(400).json({
                 msg: 'User / Password not valid - enail '
             });
         }
 
-        if ( !user.available ) {
+        if (!user.available) {
             return res.status(400).json({
                 msg: 'User / Password not valid - available: false'
             })
         }
 
-        const validPassword = bcryptjs.compareSync( password, user.pass );
-        if ( !validPassword ) {
+        const validPassword = bcryptjs.compareSync(pass, user.pass);
+        if (!validPassword) {
             return res.status(400).json({
                 msg: 'User / Password not valid - password'
             })
         }
 
-        const token = await generateJWT( user.id );
+        const token = await generateJWT(user.id);
 
         res.json({
             user,
@@ -42,24 +43,24 @@ export const login = async ( req: Request, res: Response ) => {
         res.status(500).json({
             msg: 'Contact administrator'
         });
-        
+
     }
 
 }
 
-export const validateToken = async ( req: Request, res: Response, next: NextFunction ) => {
+export const validateToken = async (req: Request, res: Response, next: NextFunction) => {
 
     let token = req.headers['authorization'];
 
-    if ( !token ) {
+    if (!token) {
         res.status(401).json({
             msg: 'Token is not valid'
         });
     }
 
-    const validToken = await verifyToken( token );
+    const validToken = await verifyToken(token);
 
-    if ( !validToken ) {
+    if (!validToken) {
         res.status(401).json({
             msg: 'Token is not valid'
         });
