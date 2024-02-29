@@ -17,7 +17,7 @@ const bcryptjs = require('bcryptjs');
 const user_1 = __importDefault(require("../models/user"));
 const generate_jwt_1 = require("../helpers/generate-jwt");
 const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { email, password } = req.params;
+    const { email, pass } = req.body;
     try {
         const user = yield user_1.default.findOne({ email });
         if (!user) {
@@ -30,7 +30,7 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
                 msg: 'User / Password not valid - available: false'
             });
         }
-        const validPassword = bcryptjs.compareSync(password, user.pass);
+        const validPassword = bcryptjs.compareSync(pass, user.pass);
         if (!validPassword) {
             return res.status(400).json({
                 msg: 'User / Password not valid - password'
