@@ -11,8 +11,6 @@ export const NoticeList = () => {
         const fetchData = async () => {
             try {
                 const data = await noticesService.listarNoticias();
-                console.log(data);
-
                 setNoticias(data);
             } catch (error) {
                 console.error('Error al obtener las noticias:', error);
