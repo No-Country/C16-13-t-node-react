@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faMagnifyingGlass, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { Menu, Busqueda } from './';
+import { Link } from 'react-router-dom';
 
 export const Navbar = () => {
 
@@ -22,7 +23,9 @@ export const Navbar = () => {
         <div onClick={mostrarMenu}>
           {menuHamb ? <FontAwesomeIcon icon={faXmark} /> : <FontAwesomeIcon icon={faBars} />}
         </div>
-        <div>LOGO</div>
+        <Link to={`/notice`}>
+          <div>LOGO</div>
+        </Link>
         <div onClick={iniciarBusqueda}>
           {busqueda ? <FontAwesomeIcon icon={faXmark} /> : <FontAwesomeIcon icon={faMagnifyingGlass} />}
         </div>
@@ -30,6 +33,16 @@ export const Navbar = () => {
       <div>
         {menuHamb && <Menu />}
         {busqueda && <Busqueda />}
+      </div>
+
+      {/* eliminar */}
+      <div>
+        <Link to="/noticeCreate">
+          <button>Crear Noticia</button>
+        </Link>
+        <Link to="/noticeOptions">
+          <button>Opciones Noticia</button>
+        </Link>
       </div>
     </div>
   );

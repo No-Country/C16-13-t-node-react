@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
-import { Notice } from '../../interface/NoticeModel';
-import noticesService from '../../service/noticesService';
+import { Notice } from '../../../interface/NoticeModel';
+import noticesService from '../../../service/noticesService';
 import { useEffect, useState } from 'react';
 
 export const NoticeComplete = () => {

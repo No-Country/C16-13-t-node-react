@@ -1,5 +1,5 @@
 export interface Notice {
-    noticeId: string;
+    noticeId?: string;
     title: string;
     subtitle: string;
     imgUrl: string;

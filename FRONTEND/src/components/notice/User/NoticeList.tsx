@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { Notice } from '../../interface/NoticeModel';
-import noticesService from '../../service/noticesService';
+import { Notice } from '../../../interface/NoticeModel';
+import noticesService from '../../../service/noticesService';
 import { Link } from 'react-router-dom';
 
 export const NoticeList = () => {
