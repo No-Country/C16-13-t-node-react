@@ -30,7 +30,7 @@ export const Login = () => {
     e.preventDefault();
     try {
       const data = await authService.authenticateUser(formData);
-      console.log(data)
+      localStorage.setItem('token', data.token)
     } catch (error) {
       const errorData: string = error.response.data.errors[0].msg;
       setMensaje({ msg: errorData, error: true })

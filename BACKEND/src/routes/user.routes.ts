@@ -5,15 +5,19 @@ import {
   deleteUserById, 
   getUserById, 
   getUsers, 
+  obtenerPerfil, 
   updateUserById
 } from '../controllers/users.controller';
 import { check } from 'express-validator';
 import { emailExists, userExistById } from '../helpers/db-validators'
 import { validateFields } from '../middlewares/validate-fields';
 import { validateJWT } from '../middlewares/validate-jwt';
+import { checkAuth } from '../middlewares/checkAuth';
 
 
 const userRouter = Router();
+
+userRouter.get('/user/perfil', checkAuth, obtenerPerfil)
 
 userRouter.get('/user', getUsers);
 
