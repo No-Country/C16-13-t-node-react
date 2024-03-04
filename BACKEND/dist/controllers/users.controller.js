@@ -50,13 +50,14 @@ const getUserById = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
 exports.getUserById = getUserById;
 const createUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const emailExsits = yield user_1.default.findOne({ email: req.body.email });
-        if (!emailExsits) {
+        const emailExists = yield user_1.default.findOne({ email: req.body.email });
+        if (!emailExists) {
             const { name, lastName, pass, email, imgUrl } = req.body;
-            const user = new user_1.default({ name, lastName, pass, email, imgUrl });
             if (req.body.pass === req.body.confirmPass) {
-                const salt = bcryptjs.genSaltSync();
-                user.pass = bcryptjs.hashSync(pass, salt);
+                const saltRounds = 10; // Factor de costo para bcrypt
+                const salt = bcryptjs.genSaltSync(saltRounds); // Genera un salt con el factor de costo especificado
+                const user = new user_1.default({ name, lastName, pass, email, imgUrl });
+                user.pass = bcryptjs.hashSync(pass, salt); // Hashea la contraseña con el salt generado
                 yield user.save();
                 return res.status(201).json({
                     msg: 'User created successfully',
@@ -64,11 +65,11 @@ const createUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
                 });
             }
             else {
-                return res.send('Passwords doesn´t match.');
+                return res.send('Passwords do not match.');
             }
         }
         else {
-            return res.send(`${req.body.email} already in use.`);
+            return res.send(`${req.body.email} is already in use.`);
         }
     }
     catch (err) {
