@@ -11,6 +11,7 @@ var __rest = (this && this.__rest) || function (s, e) {
     return t;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Roles = void 0;
 const mongoose_1 = require("mongoose");
 // Define el enum para los roles de usuarios
 var Roles;
@@ -18,7 +19,7 @@ var Roles;
     Roles["SUPADMIN"] = "superadmin";
     Roles["ADMIN"] = "administrator";
     Roles["USER"] = "user";
-})(Roles || (Roles = {}));
+})(Roles || (exports.Roles = Roles = {}));
 const userSchema = new mongoose_1.Schema({
     name: {
         type: String,

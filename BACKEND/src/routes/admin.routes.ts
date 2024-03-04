@@ -1,10 +1,10 @@
 import { Router } from 'express';
-import { adminLogIn } from '../controllers/admin.controllers';
+import { banUnban, changeRole, editOtherInformation } from '../controllers/admin.controllers';
 
 const adminRouter = Router();
 
-adminRouter.get('/admin', adminLogIn);
-
-
+adminRouter.put('/admin/roles', changeRole)
+adminRouter.put('/admin/availability', banUnban)
+adminRouter.put('/admin/modifieUser/:name', editOtherInformation)
 
 export default adminRouter;

@@ -12,10 +12,24 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.validateJWT = void 0;
+exports.validateJWT = exports.comparePassword = void 0;
 const express_1 = require("express");
+const bcrypt_1 = __importDefault(require("bcrypt"));
 const jwt = require('jsonwebtoken');
 const user_1 = __importDefault(require("../models/user"));
+const comparePassword = (password, hashedPassword) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        if (yield bcrypt_1.default.compare(password, hashedPassword)) {
+            console.log(yield bcrypt_1.default.compare(password, hashedPassword));
+            return true;
+        }
+        return false;
+    }
+    catch (error) {
+        return error;
+    }
+});
+exports.comparePassword = comparePassword;
 const validateJWT = (req = express_1.request, res = express_1.response, next) => __awaiter(void 0, void 0, void 0, function* () {
     const token = req.header('x-token');
     if (!token) {

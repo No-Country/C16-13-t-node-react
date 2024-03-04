@@ -16,7 +16,6 @@ userRouter.post('/user', [
     (0, express_validator_1.check)('pass', 'Password must be more than 8 letters.').isLength({ min: 8 }),
     (0, express_validator_1.check)('email', 'The email is not valid').isEmail(),
     (0, express_validator_1.check)('email').custom(db_validators_1.emailExists),
-    (0, express_validator_1.check)('rol', 'It is not a valid role').isIn(['superadmin', 'administrator', 'user']),
     // isAdminRole
     validate_fields_1.validateFields
 ], users_controller_1.createUser);

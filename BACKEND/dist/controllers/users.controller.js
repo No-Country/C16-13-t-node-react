@@ -50,15 +50,26 @@ const getUserById = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
 exports.getUserById = getUserById;
 const createUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { name, lastName, pass, email, imgUrl, rol } = req.body;
-        const user = new user_1.default({ name, lastName, pass, email, imgUrl, rol });
-        const salt = bcryptjs.genSaltSync();
-        user.pass = bcryptjs.hashSync(pass, salt);
-        yield user.save();
-        return res.status(201).json({
-            msg: 'User created successfully',
-            user
-        });
+        const emailExsits = yield user_1.default.findOne({ email: req.body.email });
+        if (!emailExsits) {
+            const { name, lastName, pass, email, imgUrl } = req.body;
+            const user = new user_1.default({ name, lastName, pass, email, imgUrl });
+            if (req.body.pass === req.body.confirmPass) {
+                const salt = bcryptjs.genSaltSync();
+                user.pass = bcryptjs.hashSync(pass, salt);
+                yield user.save();
+                return res.status(201).json({
+                    msg: 'User created successfully',
+                    user
+                });
+            }
+            else {
+                return res.send('Passwords doesn´t match.');
+            }
+        }
+        else {
+            return res.send(`${req.body.email} already in use.`);
+        }
     }
     catch (err) {
         console.log(err);
