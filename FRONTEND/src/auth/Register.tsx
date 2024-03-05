@@ -24,8 +24,6 @@ export const Register = () => {
     imgUrl: '',
     rol: 'USER'
   });
-  const navigate = useNavigate();
-
 
   const handleChange = (e: any) => {
     const { name, value, type, checked } = e.target;
