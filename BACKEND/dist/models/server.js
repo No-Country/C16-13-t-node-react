@@ -16,7 +16,6 @@ const express_1 = __importDefault(require("express"));
 const database_1 = require("../database/database");
 const path = require('path');
 const notices_routes_1 = __importDefault(require("../routes/notices.routes"));
-const admin_routes_1 = __importDefault(require("../routes/admin.routes"));
 const user_routes_1 = __importDefault(require("../routes/user.routes"));
 const auth_routes_1 = __importDefault(require("../routes/auth.routes"));
 const auth_controller_1 = require("../controllers/auth.controller");
@@ -40,7 +39,6 @@ class Server {
     }
     routes() {
         this.app.use(notices_routes_1.default);
-        this.app.use(admin_routes_1.default);
         this.app.use(user_routes_1.default);
         this.app.use(auth_routes_1.default);
         // Validate token path /secure routing

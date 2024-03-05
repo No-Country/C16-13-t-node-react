@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { FormEvent } from 'react';
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import authService from "../service/authService";
 import { Alerta } from '../components/utils'
 import { Mensaje } from "../interface/MensajeAlerta";
@@ -18,6 +18,8 @@ export const Login = () => {
     pass: '',
   });
 
+  const navigate = useNavigate();
+
   const handleChange = (e: any) => {
     const { name, value, type, checked } = e.target;
     setFormData(prevState => ({
@@ -30,7 +32,11 @@ export const Login = () => {
     e.preventDefault();
     try {
       const data = await authService.authenticateUser(formData);
-      localStorage.setItem('token', data.token)
+      localStorage.setItem('token', data.token);
+      setTimeout(() => {
+        navigate('/')
+      }, 2000);
+      
     } catch (error) {
       const errorData: string = error.response.data.errors[0].msg;
       setMensaje({ msg: errorData, error: true })
@@ -43,7 +49,7 @@ export const Login = () => {
       <div className="font-sans text-gray-900 antialiased">
 
         <div className="min-h-screen flex flex-col justify-center items-center pt-6 sm:pt-0 bg-[#FFF]">
-          <div className="absolute top-12 sm:top-32">
+          <div className=" top-12 sm:top-32">
             <h2 className="font-bold text-3xl">
               Hola <span className="bg-[#2564f8] text-white px-2 rounded-lg">bienvenido</span>
             </h2>
