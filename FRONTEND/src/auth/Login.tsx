@@ -6,8 +6,6 @@ import { Alerta } from '../components/utils'
 import { Mensaje } from "../interface/MensajeAlerta";
 
 
-
-
 export const Login = () => {
 
   const [mensaje, setMensaje] = useState<Mensaje>({ msg: '', error: false });
@@ -29,11 +27,13 @@ export const Login = () => {
     e.preventDefault();
     try {
       const data = await authService.authenticateUser(formData);
-      localStorage.setItem('token', data.token)
+
+      localStorage.setItem('token', data.token);
       setMensaje({ msg: 'Login successful', error: false });
       setTimeout(() => {
-        navigate('/notice');
-      }, 1000);
+        navigate('/')
+      }, 2000);
+      
     } catch (error) {
       const errorData: string = error.response.data.errors[0].msg;
       setMensaje({ msg: errorData, error: true })
@@ -49,6 +49,7 @@ export const Login = () => {
           <div className="absolute top-12 sm:top-32">
             <h2 className="font-bold text-3xl text-[--secondary-500]">
               Hola, te damos la <span className="bg-[--primary-100] text-white px-2 rounded-lg">bienvenida!</span>
+
             </h2>
           </div>
 

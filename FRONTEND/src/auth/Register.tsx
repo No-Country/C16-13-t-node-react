@@ -8,16 +8,21 @@ import { Mensaje } from "../interface/MensajeAlerta";
 
 export const Register = () => {
 
+  const admin = import.meta.env.VITE_ADMIN;
+  const navigate = useNavigate();
+
   const { pathname } = useResolvedPath('');
   const [mensaje, setMensaje] = useState<Mensaje>({ msg: '', error: false });
   const [repetirPass, setRepetirPass] = useState("");
+  const [comprobarRol, setComprobarRol] = useState("");
+
   const [formData, setFormData] = useState({
     name: '',
     lastName: '',
     email: '',
     pass: '',
     imgUrl: '',
-    rol: 'user'
+    rol: 'USER'
   });
   const navigate = useNavigate();
 
@@ -32,14 +37,24 @@ export const Register = () => {
 
   const handleSubmit = async(e: FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
+    
+    if(formData.pass !== repetirPass){
+      setMensaje({msg: "Las contraseñas deben cohincidir", error: true});
+      return;
+    }
+
+    if(comprobarRol === admin){
+      formData.rol === "ADMIN"
+    }
     try {
       console.log(formData)
       const data = await userAdminService.registrarUsuario(formData);
-      // console.log(data);
+      console.log(data);
       setMensaje({ msg: "Registrado exitosamente", error: false })
-      navigate('/login')
-      
-      // console.log(mensaje)
+
+      setTimeout(() => {
+        navigate('/')
+      }, 2000);
     } catch (error) {
       const errorData: string = error.response.data.errors[0].msg;
       setMensaje({ msg: errorData, error: true })
@@ -80,6 +95,7 @@ export const Register = () => {
               className="shadow-lg p-4 px-4 md:p-8 mb-6 bg-[#F2F2F2] rounded-2xl"
             >
               <div className="grid gap-4 gap-y-2 text-sm grid-cols-1 lg:grid-cols-3">
+
                 <div className="text-gray-600">
                   <p className="font-semibold text-lg">
                     Datos personales
@@ -174,17 +190,59 @@ export const Register = () => {
                         )
                     }
 
-                    <div className="md:col-span-4">
-                      <label htmlFor="imgUrl">URL de la foto de perfil</label>
-                      <input 
-                        type="text"
-                        name="imgUrl"
-                        id="imgUrl"
-                        value={formData.imgUrl}
-                        onChange={handleChange}
-                        className="h-10 border mt-1 rounded-xl px-4 w-full bg-[#FFF] outline-[--primary-300]"
-                        placeholder="https://www.example.com"
-                      />
+                  <div className="md:col-span-4">
+                    <label htmlFor="imgUrl">URL de la foto de perfil</label>
+                    <input 
+                      type="text"
+                      name="imgUrl"
+                      id="imgUrl"
+                      value={formData.imgUrl}
+                      onChange={handleChange}
+                      className="h-10 border mt-1 rounded-xl px-4 w-full bg-[#FFF] outline-[#2564f8]"
+                      placeholder="https://www.example.com"
+                    />
+                  </div>
+
+                  <div className="md:col-span-2">
+                    <label htmlFor="admin">Contraseña admin/superadmin</label>
+                    <input 
+                      type="password"
+                      onChange={e => setComprobarRol(e.target.value)}
+                      value={comprobarRol}
+                      className="h-10 border mt-1 rounded-xl px-4 w-full bg-[#FFF] outline-[#2564f8]"
+                      placeholder="password de admin si posees"
+                    />
+                  </div>
+
+                  {
+                    ( pathname === '/register' )
+                    ? (
+                        <>
+                        </>
+                      )
+                    : (
+                        <div className="md:col-span-5">
+                          <div className="inline-flex items-center">
+                            <input 
+                              type="checkbox"
+                              name="billing_same"
+                              id="billing_same"
+                              className="htmlForm-checkbox"
+                            />
+                            <label htmlFor="billing_same" className="ml-2">Enviar email de confirmación</label>
+                          </div>
+                        </div>
+                      )
+                  }
+
+                  <div className="md:col-span-5 text-right">
+                    <div className="inline-flex items-end">
+                      <button 
+                        type="submit"
+                        className="bg-[#2564f8] hover:bg-blue-900 text-white font-bold py-2 px-4 rounded-md"
+                      >
+                        Registrar
+                      </button>
                     </div>
 
                     <div className="md:col-span-2">

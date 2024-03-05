@@ -1,8 +1,16 @@
+import { useContext } from "react";
 import { Link } from "react-router-dom";
+import { UserContext } from "../context/UserProvider";
 
 const category: string[] = ["Deportes", "Tecnología", 'Policiales', 'Espectaculo', 'Politicas', 'Interes General'];
 
 export const Menu = () => {
+
+  const { user, cerrarSesion } = useContext(UserContext);
+
+ 
+
+  const {rol } = user;
   return (
     <div className="text-[--secundary] list-none flex flex-col justify-between bg-[--primary] shadow-xl pb-20 pt-20">
       <div className="  animacion-menu font-bold flex flex-col justify-center items-center gap-4  pb-20" >
@@ -16,7 +24,10 @@ export const Menu = () => {
           ))
         }
       </div>
-      <li className="font-extrabold text-center"><Link to="/login">Iniciar sesion</Link></li>
+      {
+        rol ? <li className="font-extrabold text-center" onClick={cerrarSesion}><Link to="/login">cerrar sesion</Link></li> : <li className="font-extrabold text-center"><Link to="/login">Iniciar sesion</Link></li>
+      }
+      
     </div>
 
   )

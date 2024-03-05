@@ -3,7 +3,6 @@ import { dbConnecion } from '../database/database';
 const path = require('path'); 
 
 import noticesRouter from '../routes/notices.routes';
-import adminRouter from '../routes/admin.routes';
 import userRouter from '../routes/user.routes';
 import authRouter from '../routes/auth.routes';
 
@@ -35,7 +34,6 @@ export default class Server {
 
     private routes () {
         this.app.use(noticesRouter);
-        this.app.use(adminRouter);
         this.app.use(userRouter);
         this.app.use(authRouter);
         // Validate token path /secure routing
