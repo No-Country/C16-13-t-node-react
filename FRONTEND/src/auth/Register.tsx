@@ -1,6 +1,6 @@
 import {  useState } from "react";
 import { FormEvent } from 'react'; 
-import { Link, useResolvedPath } from "react-router-dom";
+import { Link, useNavigate, useResolvedPath } from "react-router-dom";
 import { Alerta } from "../components/utils";
 import userAdminService from '../service/userAdminService';
 import { Mensaje } from "../interface/MensajeAlerta";
@@ -8,16 +8,21 @@ import { Mensaje } from "../interface/MensajeAlerta";
 
 export const Register = () => {
 
+  const admin = import.meta.env.VITE_ADMIN;
+  const navigate = useNavigate();
+
   const { pathname } = useResolvedPath('');
   const [mensaje, setMensaje] = useState<Mensaje>({ msg: '', error: false });
   const [repetirPass, setRepetirPass] = useState("");
+  const [comprobarRol, setComprobarRol] = useState("");
+
   const [formData, setFormData] = useState({
     name: '',
     lastName: '',
     email: '',
     pass: '',
     imgUrl: '',
-    rol: 'user'
+    rol: 'USER'
   });
 
 
@@ -31,12 +36,23 @@ export const Register = () => {
 
   const handleSubmit = async(e: FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
+    
+    if(formData.pass !== repetirPass){
+      setMensaje({msg: "Las contraseñas deben cohincidir", error: true});
+      return;
+    }
+
+    if(comprobarRol === admin){
+      formData.rol === "ADMIN"
+    }
     try {
       console.log(formData)
       const data = await userAdminService.registrarUsuario(formData);
       console.log(data);
       setMensaje({ msg: "Registrado exitosamente", error: false })
-      console.log(mensaje)
+      setTimeout(() => {
+        navigate('/')
+      }, 2000);
     } catch (error) {
       const errorData: string = error.response.data.errors[0].msg;
       setMensaje({ msg: errorData, error: true })
@@ -188,10 +204,8 @@ export const Register = () => {
                     <label htmlFor="admin">Contraseña admin/superadmin</label>
                     <input 
                       type="password"
-                      name="admin"
-                      id="admin"
-                      onChange={handleChange}
-                      value={formData.rol}
+                      onChange={e => setComprobarRol(e.target.value)}
+                      value={comprobarRol}
                       className="h-10 border mt-1 rounded-xl px-4 w-full bg-[#FFF] outline-[#2564f8]"
                       placeholder="password de admin si posees"
                     />
