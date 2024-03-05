@@ -1,12 +1,27 @@
 import axios from 'axios';
 import { Notice } from '../interface/NoticeModel';
+// import AuthProvider from '../context/UserProvider';
 
 const baseURL = 'http://localhost:8080';
 
 const noticesService = {
     agregarNoticia: async (nuevaNoticia: Notice) => {
-        const response = await axios.post(`${baseURL}/news`, nuevaNoticia);
-        return response.data.noticias;
+        const response = await axios.post(`${baseURL}/news`,  {
+            data: nuevaNoticia 
+        }, {
+          headers: {
+            'Content-Type': 'appllication/json',
+            'x-token': localStorage.getItem('token'),
+          },
+        })
+          .then( () => {
+            console.log('add notice');
+          } )
+          .catch( (err) => {
+            console.log(err)
+            throw new Error(err.message)
+          } )
+        return response;
     },
 
     editarNoticia: async (id: string, noticiaEditada: Partial<Notice>) => {

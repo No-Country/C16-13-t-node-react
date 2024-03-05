@@ -1,6 +1,6 @@
 import { createContext, useState, ReactNode, useEffect } from "react";
-import checkAuthService from "../service/checkAuth";
-import axios from "axios";
+// import checkAuthService from "../service/checkAuth";
+// import axios from "axios";
 
 interface UserContextType {
   user: boolean;

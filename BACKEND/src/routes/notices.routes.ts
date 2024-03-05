@@ -24,7 +24,7 @@ noticesRouter.post('/news', [
     check('title', 'Title is required').not().isEmpty(),
     check('subtitle', 'Subtitle is required').not().isEmpty(),
     check('category', 'Category is required').isIn(['Deportes', 'Tecnología', 'Policiales', 'Espectaculo', 'Politicas', 'Interes General']),
-    check('imgUrl', 'Image URL is required').not().isEmpty(),
+    // check('imgUrl', 'Image URL is required').not().isEmpty(),
     check('synopsis', 'Synopsis is required').not().isEmpty(),
     validateFields
 ], agregarNoticia);
