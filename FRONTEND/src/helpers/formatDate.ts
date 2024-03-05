@@ -7,6 +7,6 @@ export const formatDate = (dateString: any) => {
     const day = String(date.getDate()).padStart(2, '0');
     const hours = String(date.getHours()).padStart(2, '0');
 
-    return `publicada el ${day}-${month}-${year} a las ${hours} hs.`
+    return `${day}-${month}-${year} ${hours} hs.`
 
 };

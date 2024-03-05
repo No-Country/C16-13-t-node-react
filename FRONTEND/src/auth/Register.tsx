@@ -22,7 +22,7 @@ export const Register = () => {
     email: '',
     pass: '',
     imgUrl: '',
-    rol: 'USER'
+    rol: 'user'
   });
 
 
@@ -43,7 +43,7 @@ export const Register = () => {
     }
 
     if(comprobarRol === admin){
-      formData.rol === "ADMIN"
+      formData.rol === "administrator"
     }
     try {
       console.log(formData)

@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { Logo } from './utils';
 import { PanelAdmin } from './notice/Admi';
 import { UserContext } from '../context/UserProvider';
+import { formatDate } from '../helpers/formatDate';
 
 
 export const Navbar = () => {
@@ -23,6 +24,8 @@ export const Navbar = () => {
     setBusqueda(!busqueda);
   }
 
+  const horaActual = new Date();
+  const fecha = formatDate(horaActual);
 
   return (
     <div className='flex flex-col'>
@@ -50,7 +53,9 @@ export const Navbar = () => {
 
         {
         
-          (user.rol !== "user") && <PanelAdmin />
+          (user.rol === "administrator") ? <PanelAdmin /> : <div>
+            <h6 className='p-2 font-semibold'>ultima actualizacion: {fecha}</h6>
+          </div>
         }
     
     </div>

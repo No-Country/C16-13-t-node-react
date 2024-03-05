@@ -33,7 +33,7 @@ export const NoticeList = () => {
                         <Link to={`/notice/${noticia.noticeId}`}>
                             <img src={noticia.imgUrl} alt={noticia.title} className="mb-2 rounded-md" />
                             <h2 className="text-xl font-bold mb-2">{noticia.title}</h2>
-                            <p className="text-sm mb-2">{formatDate(noticia.fecha)}</p>
+                            <p className="text-sm mb-2">Publicada el: {formatDate(noticia.fecha)}</p>
                             <p className="text-sm">{noticia.category}</p>
                         </Link>
                     </li>
