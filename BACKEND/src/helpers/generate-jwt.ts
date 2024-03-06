@@ -10,7 +10,7 @@ export const generateJWT = ( uid = '' ) => {
 
 
     jwt.sign( payload, process.env.SECRETORPRIVATEKEY, {
-      expiresIn: '4h'
+      expiresIn: '24h'
     }, ( err: Error, token: JsonWebKey ) => {
       if ( err ) {
         console.log(err);
