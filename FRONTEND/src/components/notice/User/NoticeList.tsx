@@ -51,6 +51,7 @@ export const NoticeList = () => {
                     ))
                     
                 }
+
             </ul>
         </div>
     );

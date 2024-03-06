@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Notice } from '../../../interface/NoticeModel';
 import noticesService from '../../../service/noticesService';
 
