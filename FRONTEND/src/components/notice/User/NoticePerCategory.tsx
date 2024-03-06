@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 import { Notice } from "../../../interface/NoticeModel";
-import { NoticeComponent } from "./NoticeComponent";
+import { NoticeComponent } from "./NoticeCard";
 
 interface Props {
   news: any;
