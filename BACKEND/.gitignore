@@ -1,2 +1,16 @@
+# Private files
 .env
+
+# modules
 node_modules
+
+# Package dependencies
+package-lock.json
+
+# IDE dependencies
+.vscode
+
+# Testing files
+builders
+__test__
+__test__/*.*
