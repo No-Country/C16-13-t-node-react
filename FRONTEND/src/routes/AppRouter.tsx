@@ -25,10 +25,6 @@ export const AppRouter = () => {
                 <Route path="/notice/:id" element={<NoticeComplete />} />
                 <Route path="/notice/category/:category" element={<Home />} />
 
-                {/* <Route path="/noticeCreate" element={<NoticeCreate />} />
-                <Route path="/noticeOptions" element={<NoticeOptions />} /> */}
-
-
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
                 <Route path="/reset-password" element={<ResetPassword />} />

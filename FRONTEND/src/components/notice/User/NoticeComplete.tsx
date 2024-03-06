@@ -49,9 +49,9 @@ export const NoticeComplete = () => {
     return (
         <div className="mb-10 mx-3">
 
-            <Link to={'/'} className='flex justify-start items-center gap-2'>
-                <FontAwesomeIcon icon={faArrowLeft} className='text-[--primary-300]'/>
-                <span className='text-[--primary-300] text-xs md:text-base font-normal hover:text-[--primary-500]'>Noticias</span>
+            <Link to={'/'} className='flex justify-start items-center gap-2 text-[--primary-300] hover:text-[--secondary-500]'>
+                <FontAwesomeIcon icon={faArrowLeft}/>
+                <span className='text-xs md:text-base font-normal'>Noticias</span>
             </Link>
 
             <h1 className="text-3xl font-bold mb-4 text-center">Noticia</h1>
@@ -61,13 +61,13 @@ export const NoticeComplete = () => {
                 <img className='absolute left-0 top-0 w-full h-full z-0 object-cover rounded-3xl' src={noticia.imgUrl} alt={noticia.title} />
                 <div className="p-4 absolute bottom-0 left-0 z-20">
                     <span className='px-4 py-1 bg-black text-gray-200 inline-flex items-center justify-center mb-2'>{noticia.category}</span>
-                    <h1 className='text-4xl font-semibold text-gray-100 leading-tight'>{noticia.title}</h1>
+                    <h1 className='text-2xl md:text-4xl font-semibold text-gray-100 leading-tight'>{noticia.title}</h1>
                 </div>
             </div>
 
             <div className="px-4 lg:px-0 mt-10 text-gray-700 max-w-screen-md mx-auto text-lg leading-relaxed">
-                <h2 className='text-2xl my-2'>{noticia.subtitle}</h2>
-                <p className='pb-6'>{noticia.synopsis}</p>
+                <h2 className='text-xl md:text-2xl my-2'>{noticia.subtitle}</h2>
+                <p className='text-lg md:text-xl pb-6'>{noticia.synopsis}</p>
             </div>
 
         </div>
