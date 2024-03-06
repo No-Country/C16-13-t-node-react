@@ -45,11 +45,8 @@ export const NoticeList = () => {
             <ul className='grid w-full sm:grid-cols-2 xl:grid-cols-4 gap-6'>
                 {
                     category
-                    ? ( <NoticeListPerCategory news={noticias}/>)
-                    : noticias.map((noticia) => (
-                        <NoticeComponent key={noticia.title} noticia={ noticia } />
-                    ))
-                    
+                    ? ( <NoticeListPerCategory news={noticias} category={category} />)
+                    : ( noticias.map( (noticia) => ( <NoticeComponent key={noticia.title} noticia={ noticia } /> ) ) )
                 }
 
             </ul>
@@ -59,11 +56,10 @@ export const NoticeList = () => {
 
 interface Props {
     news: any;
+    category: String;
 }
 
-const NoticeListPerCategory = ({ news }: Props ) => {
-
-    const { category } = useParams<{ category: string }>();
+const NoticeListPerCategory = ({ news, category }: Props ) => {
 
     const [noticias, setNoticias] = useState<Notice[]>();
 
@@ -71,7 +67,6 @@ const NoticeListPerCategory = ({ news }: Props ) => {
       const noticesPerCategory = news.filter((noticia: Notice) => {
           return noticia.category === category;
       });
-      category
     
       return () => {
         setNoticias(noticesPerCategory);

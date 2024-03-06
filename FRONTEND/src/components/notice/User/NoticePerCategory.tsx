@@ -10,7 +10,9 @@ interface Props {
 
 export const NoticeListPerCategory = ({ news }: Props ) => {
 
-  const { category } = useParams<{ category: string }>();
+  const { category } = useParams<{ category: string | any }>();
+  const [cat, setCat] = useState()
+  setCat(category)
 
   const [noticias, setNoticias] = useState<Notice[]>();
 
@@ -21,8 +23,11 @@ export const NoticeListPerCategory = ({ news }: Props ) => {
   
     return () => {
       setNoticias(noticesPerCategory);
+      setCat(category);
     }
-  }, [category])
+  }, [noticias, cat]);
+
+  console.log(cat);
   
 
   return (

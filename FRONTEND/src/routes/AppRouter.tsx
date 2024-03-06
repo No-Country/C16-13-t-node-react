@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Private, Home } from "../views";
 import { NoticeComplete, NoticeCreate, NoticeOptions } from "../components/notice";
 import { AdminPerfil } from "../components/admin";
@@ -19,7 +19,7 @@ export const AppRouter = () => {
             <Routes>
 
                 {/* RUTAS PUBLICAS */}
-                <Route path="/" element={<Home />} />
+                {/* <Route path="/" element={<Home />} /> */}
                 <Route path="/notice" element={<Home />} />
 
                 <Route path="/notice/:id" element={<NoticeComplete />} />
@@ -28,8 +28,6 @@ export const AppRouter = () => {
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
                 <Route path="/reset-password" element={<ResetPassword />} />
-
-
 
             </Routes>
 
@@ -48,8 +46,6 @@ export const AppRouter = () => {
 
                 </Routes>
             }
-
-
 
             <Footer />
         </>

@@ -29,35 +29,35 @@ export const Navbar = () => {
   const fecha = formatDate(horaActual);
 
   return (
-    <div className='flex flex-col transition-all'>
-        <div className='bg-[--secondary-300] px-6 py-6 pb-10'>
-            <nav className="flex flex-row justify-between items-center h-20">
-                <div className='visible lg:hidden' onClick={mostrarMenu}>
-                    {menuHamb ? <FontAwesomeIcon icon={faXmark} size="2x" className='text-[--primary-300]' /> : <FontAwesomeIcon icon={faBars} size="2x" className='text-[--primary-300]' />}
-                </div>
-                <Link to={`/notice`}>
-                    <Logo dark={false} />
-                </Link>
-                <div onClick={iniciarBusqueda} className=''>
-                    {busqueda ? <FontAwesomeIcon icon={faXmark} size="2x" className='text-[--primary-300]' /> : <FontAwesomeIcon icon={faMagnifyingGlass} size="2x" className='text-[--primary-300]' />}
-                </div>
-            </nav>
-            <div className=''>
-                {menuHamb && <Menu />}
-                {busqueda && <Busqueda />}
-            </div>
+      <div className='flex flex-col transition-all'>
+          <div className='bg-[--secondary-300] px-6 py-6 pb-10'>
+              <nav className="flex flex-row justify-between items-center h-20">
+                  <div className='visible lg:hidden' onClick={mostrarMenu}>
+                      {menuHamb ? <FontAwesomeIcon icon={faXmark} size="2x" className='text-[--primary-300]' /> : <FontAwesomeIcon icon={faBars} size="2x" className='text-[--primary-300]' />}
+                  </div>
+                  <Link to={`/notice`}>
+                      <Logo dark={false} />
+                  </Link>
+                  <div onClick={iniciarBusqueda} className=''>
+                      {busqueda ? <FontAwesomeIcon icon={faXmark} size="2x" className='text-[--primary-300]' /> : <FontAwesomeIcon icon={faMagnifyingGlass} size="2x" className='text-[--primary-300]' />}
+                  </div>
+              </nav>
+              <div className=''>
+                  {menuHamb && <Menu />}
+                  {busqueda && <Busqueda />}
+              </div>
 
 
-        </div>
-
-        {/* panel de administrador */}
-
-        {
-          (user.rol === "administrator") ? <PanelAdmin /> : <div>
-            <h6 className='p-2 font-semibold'>ultima actualizacion: {fecha}</h6>
           </div>
-        }
-    
-    </div>
+
+          {/* panel de administrador */}
+
+          {
+            (user.rol === "administrator") ? <PanelAdmin /> : <div>
+              <h6 className='p-2 font-semibold'>ultima actualizacion: {fecha}</h6>
+            </div>
+          }
+      
+      </div>
   );
 }
