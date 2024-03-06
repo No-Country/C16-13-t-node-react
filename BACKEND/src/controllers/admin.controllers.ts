@@ -1,6 +1,8 @@
 import { Request, Response } from "express";
 import usersModel from "../models/user";
+import newsModel from '../models/notices'
 import {Roles} from "../models/user";
+import { Category } from "../models/notices";
 import { comparePassword } from '../middlewares/validate-jwt'
 
 export const adminLogIn = async (req: Request, res: Response) => {
@@ -83,16 +85,6 @@ export const changeRole = async(req: Request, res: Response) => {
             }else{
                 res.send('Something went wrong')
             }
-        }else if(await adminLogIn(req, res)){
-            if(user && (role === Roles.SUPADMIN || role === Roles.ADMIN ||role === Roles.USER)){
-                await usersModel.updateOne({_id: user._id}, { rol: role } )
-                await user.save()
-                res.send(`You´ve change the role of ${user.name}. Now he/she is ${role} `)
-            }else if(role !== Roles.SUPADMIN || role !== Roles.ADMIN ||role !== Roles.USER){
-                res.send(`Error. Invalid role: ${role}`)
-            }else{
-                res.send('Something went wrong')
-            }
         }else{
             res.send(`You don´t have enough permissions.`)
         }
@@ -109,7 +101,7 @@ export const banUnban = async (req: Request, res: Response) => {
             const action: boolean = req.body.available
             if(admin && user){
                 
-                if(user.rol > admin.rol){
+                if(user.rol < admin.rol){
                     
                     await usersModel.updateOne({_id: user._id}, { available: action } )
                     user.save()
@@ -125,6 +117,8 @@ export const banUnban = async (req: Request, res: Response) => {
             if(!user){
                 res.send(`User ${req.body.name} not found.`)
             }
+        }else{
+            res.send(`You can´t access here`)
         }
     } catch (error) {
         res.send(error)
@@ -137,13 +131,10 @@ export const editOtherInformation = async(req: Request, res: Response) => {
             
             const userToModifie = await usersModel.findOne({name: req.params.name})
             const admin = await usersModel.findOne({email: req.body.email})
-            console.log("hola");
-            if(userToModifie && admin){
-
-                console.log(userToModifie);
-            }
             
-            if(userToModifie && admin && userToModifie.rol > admin.rol){
+            
+            if(userToModifie && admin && userToModifie.rol <= admin.rol){
+                console.log("hola");
                 const { name, lastName, age, password } = req.body;
 
                 const updateFields= {
@@ -160,8 +151,38 @@ export const editOtherInformation = async(req: Request, res: Response) => {
             }else{
                 res.send('Something went wrong')
             }
+        }else{
+            res.send(`You can´t access here.`)
         }
     } catch (error) {
         
+    }
+}
+
+export const modifieCategoryOfNew = async (req: Request, res:Response) => {
+    try {
+        if(await supAdminLogin(req, res) || await adminLogIn(req, res)){
+            
+            const newId = await newsModel.findOne({_id: req.params.id})
+            const newCategory = req.body.newCategory
+            if(newId){
+                const isCategoryValid = (value: string): boolean => {
+                    return Object.values(Category).includes(value as Category);
+                }
+                
+                if(isCategoryValid(newCategory)){
+                    await newId.updateOne({category: newCategory})
+                    await newId.save()
+                    res.send(`Category of the new ${newId.title} has been changed. New category ${newCategory}`)
+                }else{
+                    res.send(`Category ${newCategory} doens´t exist.`)
+                }
+            }
+            
+        }else{
+            res.send(`You can´t access here.`)
+        }
+    } catch (error) {
+        res.send(error)
     }
 }

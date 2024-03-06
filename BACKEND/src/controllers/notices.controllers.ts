@@ -31,7 +31,8 @@ export const editarNoticia = async (req: Request, res: Response): Promise<Respon
         noticia.subtitle = req.body.subtitle || noticia.subtitle;
         noticia.synopsis = req.body.synopsis || noticia.synopsis;
         noticia.imgUrl = req.body.imgUrl || noticia.imgUrl;
-        noticia.category = req.body.category || noticia.category;
+
+        
 
         const noticiaActualizada: INotice | null = await noticia.save();
         return res.status(202).json({ noticiaActualizada });

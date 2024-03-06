@@ -12,9 +12,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.editOtherInformation = exports.banUnban = exports.changeRole = exports.supAdminLogin = exports.adminLogIn = void 0;
+exports.modifieCategoryOfNew = exports.editOtherInformation = exports.banUnban = exports.changeRole = exports.supAdminLogin = exports.adminLogIn = void 0;
 const user_1 = __importDefault(require("../models/user"));
+const notices_1 = __importDefault(require("../models/notices"));
 const user_2 = require("../models/user");
+const notices_2 = require("../models/notices");
 const validate_jwt_1 = require("../middlewares/validate-jwt");
 const adminLogIn = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -96,19 +98,6 @@ const changeRole = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
                 res.send('Something went wrong');
             }
         }
-        else if (yield (0, exports.adminLogIn)(req, res)) {
-            if (user && (role === user_2.Roles.SUPADMIN || role === user_2.Roles.ADMIN || role === user_2.Roles.USER)) {
-                yield user_1.default.updateOne({ _id: user._id }, { rol: role });
-                yield user.save();
-                res.send(`You´ve change the role of ${user.name}. Now he/she is ${role} `);
-            }
-            else if (role !== user_2.Roles.SUPADMIN || role !== user_2.Roles.ADMIN || role !== user_2.Roles.USER) {
-                res.send(`Error. Invalid role: ${role}`);
-            }
-            else {
-                res.send('Something went wrong');
-            }
-        }
         else {
             res.send(`You don´t have enough permissions.`);
         }
@@ -125,7 +114,7 @@ const banUnban = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             const user = yield user_1.default.findOne({ name: req.body.name });
             const action = req.body.available;
             if (admin && user) {
-                if (user.rol > admin.rol) {
+                if (user.rol < admin.rol) {
                     yield user_1.default.updateOne({ _id: user._id }, { available: action });
                     user.save();
                     if (action === true) {
@@ -143,6 +132,9 @@ const banUnban = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
                 res.send(`User ${req.body.name} not found.`);
             }
         }
+        else {
+            res.send(`You can´t access here`);
+        }
     }
     catch (error) {
         res.send(error);
@@ -154,11 +146,8 @@ const editOtherInformation = (req, res) => __awaiter(void 0, void 0, void 0, fun
         if ((yield (0, exports.supAdminLogin)(req, res)) || (yield (0, exports.adminLogIn)(req, res))) {
             const userToModifie = yield user_1.default.findOne({ name: req.params.name });
             const admin = yield user_1.default.findOne({ email: req.body.email });
-            console.log("hola");
-            if (userToModifie && admin) {
-                console.log(userToModifie);
-            }
-            if (userToModifie && admin && userToModifie.rol > admin.rol) {
+            if (userToModifie && admin && userToModifie.rol <= admin.rol) {
+                console.log("hola");
                 const { name, lastName, age, password } = req.body;
                 const updateFields = {
                     name,
@@ -174,8 +163,39 @@ const editOtherInformation = (req, res) => __awaiter(void 0, void 0, void 0, fun
                 res.send('Something went wrong');
             }
         }
+        else {
+            res.send(`You can´t access here.`);
+        }
     }
     catch (error) {
     }
 });
 exports.editOtherInformation = editOtherInformation;
+const modifieCategoryOfNew = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        if ((yield (0, exports.supAdminLogin)(req, res)) || (yield (0, exports.adminLogIn)(req, res))) {
+            const newId = yield notices_1.default.findOne({ _id: req.params.id });
+            const newCategory = req.body.newCategory;
+            if (newId) {
+                const isCategoryValid = (value) => {
+                    return Object.values(notices_2.Category).includes(value);
+                };
+                if (isCategoryValid(newCategory)) {
+                    yield newId.updateOne({ category: newCategory });
+                    yield newId.save();
+                    res.send(`Category of the new ${newId.title} has been changed. New category ${newCategory}`);
+                }
+                else {
+                    res.send(`Category ${newCategory} doens´t exist.`);
+                }
+            }
+        }
+        else {
+            res.send(`You can´t access here.`);
+        }
+    }
+    catch (error) {
+        res.send(error);
+    }
+});
+exports.modifieCategoryOfNew = modifieCategoryOfNew;
