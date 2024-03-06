@@ -93,7 +93,7 @@
 /*effect Menu.tsx Busqueda.tsx*/
 
 .animacion-menu {
-  animation-name: slideAnimation;
+  animation-name: fadeIn;
   animation-duration: 1s;
   animation-timing-function: ease-in-out;
 }
@@ -104,5 +104,14 @@
   }
   to {
     transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
   }
 }

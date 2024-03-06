@@ -4,28 +4,30 @@ import { UserContext } from "../context/UserProvider";
 
 const category: string[] = ["Deportes", "Tecnología", 'Policiales', 'Espectaculo', 'Politicas', 'Interes General'];
 
+
 export const Menu = () => {
 
   const { user, cerrarSesion } = useContext(UserContext);
+  const { rol } = user;
 
- 
 
-  const {rol } = user;
   return (
-    <div className="text-[--secundary] list-none flex flex-col justify-between bg-[--primary] shadow-xl pb-20 pt-20">
-      <div className="  animacion-menu font-bold flex flex-col justify-center items-center gap-4  pb-20" >
+    <div className="text-[--primary] list-none flex flex-col justify-between pt-10 animacion-menu" >
+      <div className="font-bold flex flex-col justify-center items-center gap-4 pb-14">
         {
           category.map(categ => (
             <div key={categ}>
-              <li className="hover:text-yellow-400 hover:cursor-pointer">
-                <Link to={`/notices/${categ}`}>{categ}</Link>
+              <li className="hover:text-[--warning-100] hover:cursor-pointer">
+                <Link to={`/notice/category/${categ}`}>{categ}</Link>
               </li>
             </div>
           ))
         }
       </div>
       {
-        rol ? <li className="font-extrabold text-center" onClick={cerrarSesion}><Link to="/login">cerrar sesion</Link></li> : <li className="font-extrabold text-center"><Link to="/login">Iniciar sesion</Link></li>
+        rol 
+        ? <li className="font-extrabold text-center hover:text-[--warning-100] hover:cursor-pointer" onClick={cerrarSesion}><Link to="/login">Cerrar sesion</Link></li> 
+        : <li className="font-extrabold text-center hover:text-[--warning-100] hover:cursor-pointer"><Link to="/login">Iniciar sesion</Link></li>
       }
       
     </div>

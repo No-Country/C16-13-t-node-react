@@ -1,4 +1,5 @@
-
+// const monthNames = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Deciembre"];
+// const dayNames = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sśbado"];
 
 export const formatDate = (dateString: any) => {
     const date = new Date(dateString);
@@ -7,6 +8,7 @@ export const formatDate = (dateString: any) => {
     const day = String(date.getDate()).padStart(2, '0');
     const hours = String(date.getHours()).padStart(2, '0');
 
-    return `publicada el ${day}-${month}-${year} a las ${hours} hs.`
+    // return `publicada el ${day}-${month}-${year} a las ${hours} hs.`
+    return `Publicado ${day}/${month}/${year} - ${hours} hrs.`
 
 };

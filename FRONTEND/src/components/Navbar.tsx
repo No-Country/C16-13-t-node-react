@@ -23,34 +23,32 @@ export const Navbar = () => {
     setBusqueda(!busqueda);
   }
 
-
   return (
-    <div className='flex flex-col'>
-      <div className='bg-[--primary] px-6 py-6 pb-16'>
-        <nav className="flex flex-row justify-between items-center h-20">
-          <div onClick={mostrarMenu}>
-            {menuHamb ? <FontAwesomeIcon icon={faXmark} size="2x" /> : <FontAwesomeIcon icon={faBars} size="2x" />}
-          </div>
-          <Link to={`/notice`}>
-            <Logo dark={true} />
-          </Link>
-          <div onClick={iniciarBusqueda}>
-            {busqueda ? <FontAwesomeIcon icon={faXmark} size="2x" /> : <FontAwesomeIcon icon={faMagnifyingGlass} size="2x" />}
-          </div>
-        </nav>
-        <div>
-          {menuHamb && <Menu />}
-          {busqueda && <Busqueda />}
+    <div className='flex flex-col transition-all'>
+        <div className='bg-[--secondary-300] px-6 py-6 pb-10'>
+            <nav className="flex flex-row justify-between items-center h-20">
+                <div className='visible lg:hidden' onClick={mostrarMenu}>
+                    {menuHamb ? <FontAwesomeIcon icon={faXmark} size="2x" className='text-[--primary-300]' /> : <FontAwesomeIcon icon={faBars} size="2x" className='text-[--primary-300]' />}
+                </div>
+                <Link to={`/notice`}>
+                    <Logo dark={false} />
+                </Link>
+                <div onClick={iniciarBusqueda} className=''>
+                    {busqueda ? <FontAwesomeIcon icon={faXmark} size="2x" className='text-[--primary-300]' /> : <FontAwesomeIcon icon={faMagnifyingGlass} size="2x" className='text-[--primary-300]' />}
+                </div>
+            </nav>
+            <div className=''>
+                {menuHamb && <Menu />}
+                {busqueda && <Busqueda />}
+            </div>
+
+
         </div>
 
-
-      </div>
-     
         {/* panel de administrador */}
 
         {
-        
-          (user.rol !== "user") && <PanelAdmin />
+            (user.rol !== "user") && <PanelAdmin />
         }
     
     </div>

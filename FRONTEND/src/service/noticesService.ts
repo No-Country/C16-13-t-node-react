@@ -14,13 +14,13 @@ const noticesService = {
             'x-token': localStorage.getItem('token'),
           },
         })
-          .then( () => {
-            console.log('add notice');
-          } )
-          .catch( (err) => {
-            console.log(err)
-            throw new Error(err.message)
-          } )
+            .then( () => {
+              console.log('add notice');
+            } )
+            .catch( (err) => {
+              console.log(err)
+              throw new Error(err.message)
+            } );
         return response;
     },
 
@@ -40,7 +40,12 @@ const noticesService = {
     },
 
     eliminarNoticia: async (id: string) => {
-        const response = await axios.delete(`${baseURL}/news/${id}`);
+        const response = await axios.delete(`${baseURL}/news/${id}`, {
+          headers: {
+            'Content-Type': 'appllication/json',
+            'x-token': localStorage.getItem('token'),
+          },
+        });
         return response.data.noticias;
     }
 };

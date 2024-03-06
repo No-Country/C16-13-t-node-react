@@ -1,16 +1,22 @@
-import React, { useState } from 'react';
+import React, { useLayoutEffect, useRef, useState } from 'react';
 import { Notice } from '../../../interface/NoticeModel';
 import noticesService from '../../../service/noticesService';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import { Mensaje } from '../../../interface/MensajeAlerta';
 import { Alerta } from '../../utils';
 
+
+const MIN_TEXTAREA_HEIGHT = 32;
+
 export const NoticeCreate = () => {
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const [message, setMessage] = useState<Mensaje>({ msg: '', error: false });
   const categories = ['Deportes', 'Tecnología', 'Policiales', 'Espectáculo', 'Políticas', 'Interés General'];
 
+  const textareaRef = useRef<HTMLTextAreaElement | undefined>();
+  if( textareaRef && textareaRef.current ) return;
+  
   const initialFormData: Notice = {
     title: '',
     subtitle: '',
@@ -20,6 +26,14 @@ export const NoticeCreate = () => {
   };
 
   const [formData, setFormData] = useState<Notice>(initialFormData);
+
+  useLayoutEffect(() => {
+    textareaRef.current.style.height = 'inherit';
+    textareaRef.current.style.height = `${Math.max(
+      textareaRef.current.scrollHeight,
+      MIN_TEXTAREA_HEIGHT
+    )}px`;
+  }, [formData.synopsis]);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = event.target;
@@ -42,6 +56,8 @@ export const NoticeCreate = () => {
     }
   };
 
+  
+
   return (
     <div className="font-sans text-[--neutral-500] antialiased">
       <div className="min-h-screen flex items-center justify-center p-6 bg-[#FFF]">
@@ -49,7 +65,7 @@ export const NoticeCreate = () => {
         <div className=''>
           <form className='shadow-lg p-4 px-4 md:p-8 mb-6 border-[--primary-75] border-2 neumorphism_card' onSubmit={handleSubmit}>
 
-            <div className="grid gap gap-y-2 text-sm sm:text-md grid-cols-1 lg:grid-cols-3">
+            <div className="grid gap text-sm sm:text-md grid-cols-1 lg:grid-cols-3">
               <h2 className="text-3xl font-bold mb-4 text-center">Crear Noticia</h2>
             </div>
 
@@ -63,7 +79,8 @@ export const NoticeCreate = () => {
                 id="title" 
                 name="title" 
                 value={formData.title}
-                onChange={handleInputChange} 
+                onChange={handleInputChange}
+                placeholder='Escribe el título de la noticia...'
                 />
             </div>
             <div className='py-1'>
@@ -75,6 +92,7 @@ export const NoticeCreate = () => {
                 name="subtitle" 
                 value={formData.subtitle}
                 onChange={handleInputChange} 
+                placeholder='Escribe el subtítulo de la noticia...'
               />
             </div>
             <div className='py-1'>
@@ -85,20 +103,24 @@ export const NoticeCreate = () => {
                 id="imgUrl" 
                 name="imgUrl" 
                 value={formData.imgUrl}
-                onChange={handleInputChange} 
+                onChange={handleInputChange}
+                placeholder='Escribe la URL de la imagen...'
               />
             </div>
             <div className='py-1'>
               <label htmlFor="synopsis">Sinopsis:</label>
               <textarea 
                 className='
-                  h-10 border mt-1 rounded-xl w-full bg-[--neutral-100] 
-                  blcok p-2.5 text-sm text-[--neutral-500]  outline-[--primary-300]
+                  border mt-1 rounded-xl w-full bg-[--neutral-100] 
+                  blcok p-2.5 text-sm text-[--neutral-500] outline-[--primary-300]
                 '
                 id="synopsis" 
                 name="synopsis" 
                 value={formData.synopsis}
                 onChange={handleInputChange}
+                placeholder='Escribe una sinopsis de la noticia...'
+                rows={3}
+                ref={textareaRef}
               />
             </div>
             <div className='py-3 pb-6'>

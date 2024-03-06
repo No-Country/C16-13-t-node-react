@@ -1,10 +1,8 @@
-import { Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { Private, Home } from "../views";
-import { NoticePerCategory, NoticeComplete, NoticeCreate, NoticeOptions } from "../components/notice";
+import { NoticeComplete, NoticeCreate, NoticeOptions } from "../components/notice";
 import { AdminPerfil } from "../components/admin";
-import { Login, Register } from '../auth';
-import { ResetPassword } from '../auth/ResetPassword';
-import { MockupLogin } from '../auth/Mockup';
+import { Login, Register, ResetPassword } from '../auth';
 import { Footer, Navbar } from '../components';
 
 export const AppRouter = () => {
@@ -19,7 +17,7 @@ export const AppRouter = () => {
                 <Route path="/notice" element={<Home />} />
                 
                 <Route path="/notice/:id" element={<NoticeComplete />} />
-                <Route path="/notice/:category" element={<NoticePerCategory />} />
+                <Route path="/notice/category/:category" element={<Home />} />
 
                 <Route path="/noticeCreate" element={<NoticeCreate />} />
                 <Route path="/noticeOptions" element={<NoticeOptions />} />
@@ -27,7 +25,6 @@ export const AppRouter = () => {
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
                 <Route path="/reset-password" element={<ResetPassword />} />
-                <Route path="/mockup" element={<MockupLogin />} />
 
                 {/* RUTAS PRIVADAS */}
                 <Route path="/admin" element={<Private />}>
