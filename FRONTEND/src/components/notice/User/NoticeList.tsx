@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import noticesService from '../../../service/noticesService';
 import { Notice } from '../../../interface/NoticeModel';
 import { SkelletonNotices } from '../../utils/skelletons/NoticeListSkelleton';
-import { NoticeComponent } from './NoticeComponent';
+import { NoticeComponent } from './NoticeCard';
 
 
 export const NoticeList = () => {
