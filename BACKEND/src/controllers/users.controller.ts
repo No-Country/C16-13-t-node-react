@@ -4,6 +4,14 @@ import { comparePassword } from "../middlewares/validate-jwt";
 
 const bcryptjs = require('bcryptjs');
 
+
+export const obtenerPerfil = async (req: Request, res: Response) => {
+    const { user } = req
+    res.json({
+        user
+    })
+}
+
 export const getUsers = async (req: Request, res: Response): Promise<Response>  => {
   try {
       const users = await User.find();

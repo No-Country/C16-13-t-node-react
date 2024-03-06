@@ -16,7 +16,7 @@ noticesRouter.post('/news', [
     (0, express_validator_1.check)('title', 'Title is required').not().isEmpty(),
     (0, express_validator_1.check)('subtitle', 'Subtitle is required').not().isEmpty(),
     (0, express_validator_1.check)('category', 'Category is required').isIn(['Deportes', 'Tecnología', 'Policiales', 'Espectaculo', 'Politicas', 'Interes General']),
-    (0, express_validator_1.check)('imgUrl', 'Image URL is required').not().isEmpty(),
+    // check('imgUrl', 'Image URL is required').not().isEmpty(),
     (0, express_validator_1.check)('synopsis', 'Synopsis is required').not().isEmpty(),
     validate_fields_1.validateFields
 ], notices_controllers_1.agregarNoticia);

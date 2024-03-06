@@ -1,13 +1,9 @@
 import { useState } from "react";
 import { FormEvent } from 'react';
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import authService from "../service/authService";
 import { Alerta } from '../components/utils'
 import { Mensaje } from "../interface/MensajeAlerta";
-/*import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSquareFacebook, faSquareInstagram, faSquareTwitter } from "@fortawesome/free-brands-svg-icons";*/AbstractRange
-
-
 
 
 export const Login = () => {
@@ -17,6 +13,7 @@ export const Login = () => {
     email: '',
     pass: '',
   });
+  const navigate = useNavigate();
 
   const handleChange = (e: any) => {
     const { name, value, type, checked } = e.target;
@@ -30,7 +27,13 @@ export const Login = () => {
     e.preventDefault();
     try {
       const data = await authService.authenticateUser(formData);
-      console.log(data)
+
+      localStorage.setItem('token', data.token);
+      setMensaje({ msg: 'Login successful', error: false });
+      setTimeout(() => {
+        navigate('/')
+      }, 2000);
+      
     } catch (error) {
       const errorData: string = error.response.data.errors[0].msg;
       setMensaje({ msg: errorData, error: true })
@@ -43,27 +46,28 @@ export const Login = () => {
       <div className="font-sans text-gray-900 antialiased">
 
         <div className="min-h-screen flex flex-col justify-center items-center pt-6 sm:pt-0 bg-[#FFF]">
-          <div className="absolute top-12 sm:top-32">
-            <h2 className="font-bold text-3xl">
-              Hola <span className="bg-[#2564f8] text-white px-2 rounded-lg">bienvenido</span>
+
+          <div className="absolute top-12 sm:top-56">
+            <h2 className="font-bold text-3xl text-[--secondary-500]">
+              Hola, te damos la <span className="bg-[--primary-100] text-white px-2 rounded-lg">bienvenida!</span>
             </h2>
           </div>
 
-
-          <div className="w-auto sm:w-full sm:max-w-xl mt-6 px-6 py-4 bg-[#F2F2F2] shadow-md overflow-hidden rounded-2xl">
+          <div className="w-auto sm:w-full sm:max-w-xl mt-6 px-6 py-4 border-[--primary-75] border-2 neumorphism_login sm:rounded-2xl overflow-hidden">
             <form onSubmit={handleSubmit}>
 
               <div className="py-8">
                 <center>
-                  <span className="text-2xl font-semibold">
+                  <span className="text-2xl font-semibold text-[--secondary-500]">
                     Inicia sesión
                   </span>
+                  
                 </center>
                 <hr className="border-1 border-black" />
               </div>
 
               <div>
-                <label className="block font-medium text-sm text-gray-700" htmlFor="email" > {/* value="Email" */}
+                <label className="block font-medium text-sm text-[--secondary-300]" htmlFor="email" > {/* value="Email" */}
                   Email:
                 </label>
                 <input
@@ -73,12 +77,12 @@ export const Login = () => {
                   value={formData.email}
                   onChange={handleChange}
                   placeholder='john_doe@gmail.com'
-                  className="w-full rounded-xl py-2.5 px-4 border text-sm outline-[#2564f8]"
+                  className="w-full rounded-md sm:rounded-xl py-2.5 px-4 border text-sm outline-[--primary-75] bg-[--neutral-75]"
                 />
               </div>
 
               <div className="mt-4">
-                <label className="block font-medium text-sm text-gray-700" htmlFor="password" > {/* value="Password" */}
+                <label className="block font-medium text-sm text-[--secondary-300]" htmlFor="password" > {/* value="Password" */}
                   Contraseña
                 </label>
                 <div className="relative">
@@ -91,7 +95,7 @@ export const Login = () => {
                     onChange={handleChange}
                     required
                     autoComplete="current-password"
-                    className='w-full rounded-xl py-2.5 px-4 border text-sm outline-[#2564f8]'
+                    className='w-full rounded-md sm:rounded-xl py-2.5 px-4 border text-sm outline-[--primary-300] bg-[--neutral-75] '
                   />
 
                   <div className="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5">
@@ -107,7 +111,7 @@ export const Login = () => {
 
               <div className="flex items-center justify-between mt-4">
                 <label htmlFor="remember_me" className="flex items-center">
-                  <input type="checkbox" id="remember_me" name="remember" className='rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500' />
+                  <input type="checkbox" id="remember_me" name="remember" className='rounded border-[--neutral-300] text-[--secondary-500] shadow-sm focus:ring-[--primary-300]' />
                   <span className="ms-2 text-xs sm:text-sm text-gray-600">
                     Recuérdame
                   </span>
@@ -115,7 +119,7 @@ export const Login = () => {
 
                 <Link
                   to={'/reset-password'}
-                  className="hover:underline text-xs sm:text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                  className="hover:underline text-xs sm:text-sm text-[--secondary-500] hover:text-gray-900 rounded-md sm:rounded-xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[--primary-300]"
                 >
                   Recuperar contraseña
                 </Link>
@@ -125,14 +129,18 @@ export const Login = () => {
 
                 <button 
                   type="submit"
-                  className='w-full inline-flex justify-center items-center px-4 py-2 bg-[#2564f8] border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-900 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150'>
+                  className='
+                    w-full inline-flex justify-center items-center px-4 py-2 bg-[--primary-100] border border-transparent rounded-md sm:rounded-xl font-semibold text-xs text-[--secondary-300] uppercase tracking-widest 
+                  hover:text-white hover:bg-[--primary-500] 
+                    focus:bg-[--neutral-300] active:bg-[--neutral-500] focus:outline-none focus:ring-2 focus:ring-[--secondary-300] focus:ring-offset-2 
+                    transition ease-in-out duration-150'>
                   Ingresar
                 </button>
 
               </div>
 
               <div className="block mt-4">
-                <span className="text-xs sm:text-sm">No tenés cuenta? <Link to={'/register'} className="hover:underline">Registrate</Link></span>
+                <span className="text-xs sm:text-sm text-[--secondary-500]">No tenés cuenta? <Link to={'/register'} className="hover:underline">Registrate</Link></span>
               </div>
 
             </form>

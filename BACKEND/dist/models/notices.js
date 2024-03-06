@@ -39,7 +39,7 @@ const noticeSchema = new mongoose_1.Schema({
     },
     imgUrl: {
         type: String,
-        required: [true, "La URL de la foto es obligatoria"]
+        // required: [true, "La URL de la foto es obligatoria"]
     },
     synopsis: {
         type: String,

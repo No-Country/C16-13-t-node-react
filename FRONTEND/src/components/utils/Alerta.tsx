@@ -6,9 +6,9 @@ export const Alerta = ({ mensaje }: { mensaje: Mensaje }) => {
     return (
       <>
         {error ? (
-          <div className="bg-[--alert] text-white font-bold p-2 rounded-lg my-4 shadow-2xl">{msg}</div>
+          <div className="bg-[--alert] text-white font-bold px-2 py-4 rounded-lg my-4 shadow-2xl text-center">{msg}</div>
         ) : (
-          <div className="bg-[--succes] text-white font-bold p-2 rounded-lg my-4 shadow-2xl">{msg}</div>
+          <div className="bg-[--succes] text-white font-bold px-2 py-4 rounded-lg my-4 shadow-2xl text-center">{msg}</div>
         )}
       </>
     );

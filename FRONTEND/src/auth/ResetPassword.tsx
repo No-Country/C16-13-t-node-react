@@ -8,7 +8,7 @@ export const ResetPassword = () => {
       <div className="min-h-screen flex flex-col justify-center items-center pt-6 sm:pt-0 bg-[#FFF]">
         <div className="absolute top-12 sm:top-32">
           <h2 className="font-bold text-3xl">
-            Recupera <span className="bg-[#2564f8] text-white px-2 rounded-lg">contraseña</span>
+            Recupera <span className="bg-[--primary-300] text-white px-2 rounded-lg">contraseña</span>
           </h2>
         </div>
 
@@ -33,13 +33,13 @@ export const ResetPassword = () => {
                 type='email'
                 name='email'
                 placeholder='john_doe@gmail.com'
-                className="w-full rounded-xl py-2.5 px-4 border text-sm outline-[#2564f8]" 
+                className="w-full rounded-xl py-2.5 px-4 border text-sm outline-[--primary-300]" 
               />
             </div>
 
             <div className="block mt-4">
 
-              <button className='w-full inline-flex justify-center items-center px-4 py-2 bg-[#2564f8] border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-900 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150'>
+              <button className='w-full inline-flex justify-center items-center px-4 py-2 bg-[--primary-300] border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-900 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150'>
                 Enviar|
               </button>
 

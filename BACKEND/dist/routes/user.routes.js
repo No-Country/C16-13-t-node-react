@@ -6,7 +6,9 @@ const express_validator_1 = require("express-validator");
 const db_validators_1 = require("../helpers/db-validators");
 const validate_fields_1 = require("../middlewares/validate-fields");
 const validate_jwt_1 = require("../middlewares/validate-jwt");
+const checkAuth_1 = require("../middlewares/checkAuth");
 const userRouter = (0, express_1.Router)();
+userRouter.get('/user/perfil', checkAuth_1.checkAuth, users_controller_1.obtenerPerfil);
 userRouter.get('/user', users_controller_1.getUsers);
 userRouter.get('/user/:id', [
     (0, express_validator_1.check)('id').custom(db_validators_1.userExistById),

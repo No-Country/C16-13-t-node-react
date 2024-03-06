@@ -12,9 +12,16 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteUserById = exports.updateUserById = exports.createUser = exports.getUserById = exports.getUsers = void 0;
+exports.deleteUserById = exports.updateUserById = exports.createUser = exports.getUserById = exports.getUsers = exports.obtenerPerfil = void 0;
 const user_1 = __importDefault(require("../models/user"));
 const bcryptjs = require('bcryptjs');
+const obtenerPerfil = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { user } = req;
+    res.json({
+        user
+    });
+});
+exports.obtenerPerfil = obtenerPerfil;
 const getUsers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const users = yield user_1.default.find();
