@@ -47,7 +47,7 @@ export const Login = () => {
 
         <div className="min-h-screen flex flex-col justify-center items-center pt-6 sm:pt-0 bg-[#FFF]">
 
-          <div className="absolute top-12 sm:top-32">
+          <div className="absolute top-12 sm:top-56">
             <h2 className="font-bold text-3xl text-[--secondary-500]">
               Hola, te damos la <span className="bg-[--primary-100] text-white px-2 rounded-lg">bienvenida!</span>
             </h2>
