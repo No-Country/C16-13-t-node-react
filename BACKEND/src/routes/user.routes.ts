@@ -12,11 +12,7 @@ import { check } from 'express-validator';
 import { emailExists, userExistById } from '../helpers/db-validators'
 import { validateFields } from '../middlewares/validate-fields';
 import { validateJWT } from '../middlewares/validate-jwt';
-<<<<<<< HEAD
-import { login } from '../controllers/auth.controller';
-=======
 import { checkAuth } from '../middlewares/checkAuth';
->>>>>>> e56eca596fbc4e7deb095bfc05c52b2e83a2bdf8
 
 
 const userRouter = Router();
