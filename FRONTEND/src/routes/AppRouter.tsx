@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import { Private, Home } from "../views";
 import { NoticeComplete, NoticeCreate, NoticeOptions } from "../components/notice";
 import { AdminPerfil } from "../components/admin";

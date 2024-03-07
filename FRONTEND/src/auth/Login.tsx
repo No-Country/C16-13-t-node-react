@@ -31,7 +31,7 @@ export const Login = () => {
       localStorage.setItem('token', data.token);
       setMensaje({ msg: 'Login successful', error: false });
       setTimeout(() => {
-        navigate('/')
+        navigate('/notice')
       }, 2000);
       
     } catch (error) {
@@ -47,8 +47,8 @@ export const Login = () => {
 
         <div className="min-h-screen flex flex-col justify-center items-center pt-6 sm:pt-0 bg-[#FFF]">
 
-          <div className="absolute top-12 sm:top-56">
-            <h2 className="font-bold text-3xl text-[--secondary-500]">
+          <div className="absolute top-64 sm:top-80">
+            <h2 className="font-bold text-3xl text-[--secondary-500] text-center">
               Hola, te damos la <span className="bg-[--primary-100] text-white px-2 rounded-lg">bienvenida!</span>
             </h2>
           </div>
