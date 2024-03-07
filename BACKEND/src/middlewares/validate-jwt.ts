@@ -1,8 +1,20 @@
 import { response, request, NextFunction } from 'express'
+import bcrypt from 'bcrypt';
 const jwt = require('jsonwebtoken');
 
 import User from '../models/user';
 
+export const comparePassword = async (password: string, hashedPassword: string) => {
+  try {
+    if(await bcrypt.compare(password, hashedPassword)){
+      console.log(await bcrypt.compare(password, hashedPassword));
+      return true
+    }
+    return false
+  } catch (error) {
+    return error
+  }
+}
 
 export const validateJWT = async( req= request, res = response, next: NextFunction ): Promise<string | any> => {
 

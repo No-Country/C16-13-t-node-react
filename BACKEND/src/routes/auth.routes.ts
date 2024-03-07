@@ -12,4 +12,5 @@ authRouter.post('/login', [
   validateFields
 ], login  );
 
+
 export default authRouter;

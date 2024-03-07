@@ -12,7 +12,11 @@ import { check } from 'express-validator';
 import { emailExists, userExistById } from '../helpers/db-validators'
 import { validateFields } from '../middlewares/validate-fields';
 import { validateJWT } from '../middlewares/validate-jwt';
+<<<<<<< HEAD
+import { login } from '../controllers/auth.controller';
+=======
 import { checkAuth } from '../middlewares/checkAuth';
+>>>>>>> e56eca596fbc4e7deb095bfc05c52b2e83a2bdf8
 
 
 const userRouter = Router();
@@ -30,7 +34,6 @@ userRouter.post('/user', [
     check('pass', 'Password must be more than 8 letters.').isLength({ min: 8 }),
     check('email', 'The email is not valid').isEmail(),
     check('email').custom( emailExists ),
-    check('rol', 'It is not a valid role').isIn(['superadmin', 'administrator', 'user']),
     // isAdminRole
     validateFields
 ], createUser);

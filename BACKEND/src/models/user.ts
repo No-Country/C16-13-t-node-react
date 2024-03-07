@@ -1,7 +1,7 @@
 import { Schema, model, Document } from 'mongoose';
 
 // Define el enum para los roles de usuarios
-enum Roles {
+export enum Roles {
   SUPADMIN = 'superadmin',
   ADMIN = 'administrator',
   USER = 'user',

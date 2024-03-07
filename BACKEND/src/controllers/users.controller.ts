@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import User, { IUser } from "../models/user";
+import { comparePassword } from "../middlewares/validate-jwt";
 
 const bcryptjs = require('bcryptjs');
 
@@ -44,25 +45,35 @@ export const getUserById = async (req: Request, res: Response): Promise<Response
 
 export const createUser = async (req: Request, res: Response): Promise<Response> => {
     try {
-        const { name, lastName, pass, email, imgUrl, rol } =  req.body;
-        const user = new User({ name, lastName, pass, email, imgUrl, rol });
-        const salt = bcryptjs.genSaltSync();
-
-        user.pass = bcryptjs.hashSync( pass, salt );
-        
-        await user.save();
-        return res.status(201).json({
-            msg: 'User created successfully',
-            user
-        });
+        const emailExists = await User.findOne({email: req.body.email})
+        if(!emailExists){
+            const { name, lastName, pass, email, imgUrl } =  req.body;
+            if(req.body.pass === req.body.confirmPass){
+                const saltRounds = 10; // Factor de costo para bcrypt
+                const salt = bcryptjs.genSaltSync(saltRounds); // Genera un salt con el factor de costo especificado
+    
+                const user = new User({ name, lastName, pass, email, imgUrl });
+                user.pass = bcryptjs.hashSync(pass, salt); // Hashea la contraseña con el salt generado
+                
+                await user.save();
+                return res.status(201).json({
+                    msg: 'User created successfully',
+                    user
+                });
+            } else {
+                return res.send('Passwords do not match.')
+            }
+        } else {
+            return res.send(`${req.body.email} is already in use.`)
+        }
     } catch (err) {
         console.log(err);
         return res.status(500).json({
             msg: 'Error '
         });
-      
     }
 };
+
 
 export const updateUserById = async (req: Request, res: Response): Promise<Response> => {
     const { id } = req.params;

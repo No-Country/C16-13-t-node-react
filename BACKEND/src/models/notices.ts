@@ -1,7 +1,7 @@
 import { Schema, model, Document } from 'mongoose';
 
 // Define el enum para las categorías
-enum Category {
+export enum Category {
     DEPORTES = 'Deportes',
     TECNOLOGIA = 'Tecnología',
     POLICIALES = 'Policiales',

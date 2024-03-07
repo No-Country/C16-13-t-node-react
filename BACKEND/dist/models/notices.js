@@ -11,6 +11,7 @@ var __rest = (this && this.__rest) || function (s, e) {
     return t;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Category = void 0;
 const mongoose_1 = require("mongoose");
 // Define el enum para las categorías
 var Category;
@@ -21,7 +22,7 @@ var Category;
     Category["ESPECTACULO"] = "Espectaculo";
     Category["POLITICAS"] = "Politicas";
     Category["INTERES_GENERAL"] = "Interes General";
-})(Category || (Category = {}));
+})(Category || (exports.Category = Category = {}));
 const noticeSchema = new mongoose_1.Schema({
     title: {
         type: String,

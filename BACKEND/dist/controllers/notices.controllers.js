@@ -43,7 +43,6 @@ const editarNoticia = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         noticia.subtitle = req.body.subtitle || noticia.subtitle;
         noticia.synopsis = req.body.synopsis || noticia.synopsis;
         noticia.imgUrl = req.body.imgUrl || noticia.imgUrl;
-        noticia.category = req.body.category || noticia.category;
         const noticiaActualizada = yield noticia.save();
         return res.status(202).json({ noticiaActualizada });
     }
