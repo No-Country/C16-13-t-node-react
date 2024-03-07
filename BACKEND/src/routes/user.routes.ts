@@ -11,7 +11,6 @@ import { check } from 'express-validator';
 import { emailExists, userExistById } from '../helpers/db-validators'
 import { validateFields } from '../middlewares/validate-fields';
 import { validateJWT } from '../middlewares/validate-jwt';
-import { login } from '../controllers/auth.controller';
 
 
 const userRouter = Router();
